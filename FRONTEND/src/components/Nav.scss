@@ -1,0 +1,31 @@
+ul {
+    display: flex;
+    justify-content: space-between;
+    color: #7F7A91;
+    font-weight: bold;
+    padding: 13px;
+    li {
+        list-style-type: none;
+        margin: 15px;
+        font-size: 20px;
+        a {
+          text-decoration: none;
+         }
+        a:hover {
+            color: var(--skin-color-prrimary);
+        } 
+    }
+    #right {
+        display: flex;
+        justify-content: space-between;
+        padding-right: 80px;
+    
+    }
+    #left {
+        padding-left: 66px;
+    }
+}
+
+
+
+
