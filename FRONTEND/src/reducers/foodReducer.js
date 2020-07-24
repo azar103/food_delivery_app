@@ -3,39 +3,42 @@ const initialState = {
     foods: [
         {
             id: 1,
-            name: 'Easy Apple Fruit Cake',
-            price: 20.23,
+            name: 'Salade Cesar',
+            price: 10.000,
             city: 'tunis',
-            url: 'https://www.bbcgoodfood.com/sites/default/files/recipe_images/recipe-image-legacy-id--268475_12.jpg',
-            rating: 4,
-            timeDilevery: '30-40 min'
+            url: 'https://cuisine.nessma.tv/uploads/6/2020-04/ac7450bb2b9ac55b7060d4ccde66dba2.jpg',
+            ingredients: [
+                "Laitue",
+                "tomates cerises",
+                "poulet",
+                "croûtons",
+                "roquette",
+                "parmesan"
+            ]
         },
         {
             id: 2,
-            name: 'Mexican Tacos',
-            price: 14.00,
+            name: 'Tacos Simple Crispy Pesto',
+            price: 8.500,
             city: 'tunis',
-            url: 'https://assets.afcdn.com/recipe/20190212/87658_w350h250c1cx1663cy2227cxt0cyt0cxb6236cyb4154.webp',
-            rating: 3,
-            timeDilevery: '30-40 min'
+            url: 'https://images-gmi-pmc.edge-generalmills.com/0a76e9dd-cf0b-40b4-9b31-56552dabdb36.jpg',
+            ingredients: [
+                "Sauce pesto",
+                "champignon frai",
+                "poulet panée"
+            ]
         },
         {
             id: 3,
-            name: 'Flafel',
-            price: 30.23,
+            name: 'Pathe Thon Fromage',
+            price: 7.000,
             city: 'bizerte',
-            url: 'https://assets.afcdn.com/recipe/20170124/571_w350h250c1cx1500cy1000.webp',
-            rating: 5,
-            timeDilevery: '10-20 min'
-        },
-        {
-            id: 4,
-            name: 'Fricassé tunisien',
-            price: 40.33,
-            city: 'tunis',
-            url: 'https://img-3.journaldesfemmes.fr/F2ad_C1oubaRq31kNffwZ2Lj6wQ=/748x499/smart/a877b7cd0a2f4bf3b0a738dd67c2831f/recipe-jdf/376700.jpg',
-            rating: 5,
-            timeDilevery: '30-50 min'
+            url: 'https://static.750g.com/images/640-420/b8df15da0150e65ae1cb44313bd211c7/pates-au-thon-inratables.jpg',
+            ingredients: [
+                "Sauce tomate",
+                "thon",
+                "mozarella"
+            ]
         }
         
     ]

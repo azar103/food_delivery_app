@@ -1,0 +1,18 @@
+.order_block {
+    display: flex;
+    justify-content: space-between;
+   b{
+       font-size: 15px;
+       width: 200px;
+   }
+    .delete_quantity_block{
+        display: flex;
+        justify-content: space-around;
+        
+       .fa-trash {
+           margin-top: 15px;
+           color: red;
+           cursor: pointer;
+       }
+    }
+}

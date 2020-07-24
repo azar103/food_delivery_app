@@ -1,0 +1,56 @@
+.orders_container {
+
+    max-width: 800px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;;
+    margin: auto;
+    line-height: 50px;
+    height: auto;
+    padding: 15px;
+    .order_block {
+        display: flex;
+        justify-content: space-between;
+       b{
+           font-size: 15px;
+           width: 200px;
+       }
+        .delete_quantity_block{
+            display: flex;
+            justify-content: space-around;
+            .add-minus-group{
+                width: 300px;
+                margin-right: 40px;
+            }
+            display: flex;
+            justify-content: space-around;
+            margin-left: 30px;
+            .add-minus {
+                color: var(--skin-color-primary);
+                background-color: white;
+                border: none;
+                outline: none;
+                padding: 10px;
+                font-size: 20px;
+                cursor: pointer;
+           }
+           .fa-trash {
+               margin-top: 15px;
+               color: red;
+           }
+        }
+    }
+    
+    
+}
+
+.order_btn{
+    background-color: var(--skin-color-primary);
+    padding: 10px;
+    color: white;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    width: 200px;
+    margin: auto;
+}

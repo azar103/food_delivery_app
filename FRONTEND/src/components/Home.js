@@ -5,7 +5,8 @@ import { getFoods } from '../reducers/actions'
 import Food from './Food'
  function Home(props) {
     const [inputValue, setInputValue] = useState('');
-    const [selectedValue, setSelectedValue] = useState('All Cities');
+    const [selectedValue, setSelectedValue] = useState('');
+
     useEffect(() => {
         getFoods()
     })
@@ -16,11 +17,14 @@ import Food from './Food'
     const handleChangeSelectValue = (e) => {
         setSelectedValue(e.target.value)
     }
-    const filteredFoods = props.foods.filter(food => food.name.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1 &&
-    food.city.toLowerCase().indexOf(selectedValue.toLowerCase()) !== -1
+    const filteredFoodsByNameAndCity = props.foods.filter(food => 
+        food.name.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1 &&
+        food.city.toLowerCase().indexOf(selectedValue.toLowerCase()) !== -1
+    )
+    const filteredFoodsByName= props.foods.filter(food => 
+        food.name.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1
     )
     return (
-
         <>
         <section className="home_header">
             <div className="home_header_presentation">
@@ -32,42 +36,43 @@ import Food from './Food'
                  Your orders
                </button>
             </div>
-            <img  src="../../header.jpg" alt="header_image"/> 
+            <img id="header_image" src="../../header.jpg" alt="header_image"/> 
         </section>
         <section className="home_search">
             <h2>Search your Food</h2>
             <div className="search_container">
                 <input type="text" 
-                  placeholder="Enter a name of food..."
+                  placeholder="search your food by name and city..."
                   value={inputValue}
                   onChange={(text) => handleChange(text)}
                   />
                   <select
                     onChange={(value) => handleChangeSelectValue(value)}
                     value={selectedValue}
+                    id="select"
                   >
-                      <option value="All Cities">All Cities</option>
+                      <option value="Select a city" selected>Select a city</option>
                       <option value="Tunis">Tunis</option>
                       <option value="Bizerte">Bizerte</option>
                   </select>
-                <img  src="../../search_img_section.jpg" alt="header_image"/> 
+                <img id="search_image"  src="../../search_img_section.jpg" alt="header_image"/> 
             </div>
         </section>
         <section className="home_foods">
             <h2 id="home_foods_title">Most Recent Foods</h2>
             <div className="foods_container">
-              {selectedValue !=='All Cities' ? filteredFoods.length>0 && filteredFoods.map((food, index) => <Food
+              {
+              selectedValue !== 'Select a city' ?
+              filteredFoodsByNameAndCity.length>0 && filteredFoodsByNameAndCity.map((food, index) => <Food
                 key={index}
                 food={food}
               />)
-               :
-               props.foods.length>0 && props.foods.map((food, index) => <Food
+              :
+              filteredFoodsByName.length>0 && filteredFoodsByName.map((food, index) => <Food
                 key={index}
                 food={food}
               />)
-
-            
-            }
+              }
                 
             </div>
             <div className="add_food">
@@ -80,7 +85,7 @@ import Food from './Food'
 
 const mapStateToProps =(state) => {
     return {
-        foods: state.foods
+        foods: state.manageFoods.foods
     }
 }
 
