@@ -17,6 +17,9 @@ font-family: 'Merriweather Sans', sans-serif;
         flex-direction: column;
         max-width: 400px;
         padding-top: 110px;
+        Link{
+            text-decoration: none;
+        }
         h1 {
             font-size: 60px;
             #title_span {
@@ -45,6 +48,7 @@ font-family: 'Merriweather Sans', sans-serif;
            outline: none;
            border: none;
            box-shadow: 3px 2px 5px 0px rgba(0,0,0,0.75);
+           cursor: pointer;
 
        }
     }

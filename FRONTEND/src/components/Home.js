@@ -3,6 +3,7 @@ import './Home.scss'
 import { connect } from 'react-redux'
 import { getFoods } from '../reducers/actions'
 import Food from './Food'
+import { Link } from 'react-router-dom'
  function Home(props) {
     const [inputValue, setInputValue] = useState('');
     const [selectedValue, setSelectedValue] = useState('');
@@ -32,9 +33,13 @@ import Food from './Food'
                 <p>
                     Order your foods at any time and we will deliver them directly to your home
                 </p>
+                <Link to="/orders">
                 <button id="read_btn">
-                 Your orders
+   
+                   Your orders
+         
                </button>
+               </Link>  
             </div>
             <img id="header_image" src="../../header.jpg" alt="header_image"/> 
         </section>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import './SingleFood.scss'
-import { AddToCart } from '../reducers/actions';
+import { AddToCart, pressButton } from '../reducers/actions';
 
 
 function SingleFood(props) {
@@ -47,21 +47,41 @@ function SingleFood(props) {
                   <p><b>price:</b> {parseFloat(getPrice(foodObject.price)).toFixed(3)}DT</p>
                   <p><b>City:</b> {foodObject.city}</p>
                   <p><b>ingredients:</b>{foodObject.ingredients.join(',')}</p>
-                  
-                  <div className="add-minus-group">
-                 <button className="add-minus"
-                 onClick={() => setCounter(counter+1)}
-                 >+</button>  
-                 <span>{getCount()}</span>
-                 <button className="add-minus"
-                 onClick={() => setCounter(counter-1)}
-                  >-</button>  
-                 </div> 
+                  {
+                      props.isPressed === false ?
+                      <div className="add-minus-group">
+                      <button className="add-minus"
+                      onClick={() => setCounter(counter+1)}
+                      >+</button>  
+                      <span>{getCount()}</span>
+                      <button className="add-minus"
+                      onClick={() => setCounter(counter-1)}
+                       >-</button>  
+                      </div> 
+                      :
+                      <div className="add-minus-group">
+                      <button
+                      disabled
+                      className="add-minus"
+                      onClick={() => setCounter(counter+1)}
+                      >+</button>  
+                      <span disabled>{getCount()}</span>
+                      <button 
+                      disabled
+                      className="add-minus"
+                      onClick={() => setCounter(counter-1)}
+                       >-</button>  
+                      </div> 
+
+
+                  }
+                
                   <button className="order_btn"
                       onClick={() =>{
-                        setPressed(true)  
                         const objUpdated = update();
-                        props.dispatch(AddToCart(objUpdated))}}
+                        props.dispatch(AddToCart(objUpdated))
+                        props.dispatch(pressButton())
+                    }}
                   >
                   <i className="fa fa-shopping-cart fa-2x" aria-hidden="true" style={{color: "#FFF"}}  
                   >Add to cart</i>
@@ -74,7 +94,8 @@ function SingleFood(props) {
 const mapStateToProps = (state) => {
     return {
         foods: state.manageFoods.foods,
-        cart: state.manageCart.cart
+        cart: state.manageCart.cart,
+        isPressed: state.pressedButton.isPressed
     }
 }
 export default connect(mapStateToProps)(SingleFood)
