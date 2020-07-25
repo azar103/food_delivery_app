@@ -9,13 +9,7 @@ function SingleFood(props) {
    
     const [counter, setCounter] = useState(1)
     const [price, setPrice] = useState(0)
-    const [updateObject, setUpdateObject] = useState({
-        id: 0,
-        name: '',
-        price: 0,
-        url:'',
-        ingredients: []
-    })
+
 
     const getCount =() => {
         if(counter < 0) {
@@ -53,6 +47,7 @@ function SingleFood(props) {
                   <p><b>price:</b> {parseFloat(getPrice(foodObject.price)).toFixed(3)}DT</p>
                   <p><b>City:</b> {foodObject.city}</p>
                   <p><b>ingredients:</b>{foodObject.ingredients.join(',')}</p>
+                  
                   <div className="add-minus-group">
                  <button className="add-minus"
                  onClick={() => setCounter(counter+1)}
@@ -64,8 +59,9 @@ function SingleFood(props) {
                  </div> 
                   <button className="order_btn"
                       onClick={() =>{
-                        const objUpdate = update();
-                        props.dispatch(AddToCart(objUpdate))}}
+                        setPressed(true)  
+                        const objUpdated = update();
+                        props.dispatch(AddToCart(objUpdated))}}
                   >
                   <i className="fa fa-shopping-cart fa-2x" aria-hidden="true" style={{color: "#FFF"}}  
                   >Add to cart</i>

@@ -8,21 +8,28 @@ import Order from './Order'
         let sum =  props.cart.reduce((accumulator, el) => accumulator+el.price,0)
         return sum;  
     }
-
-    return (
-        
+    
+    return(
+        props.cart.length>0
+        ?    
         <div className="orders_container">
              <h2>{props.cart.length} command(s)</h2>
              {props.cart.map((order, index) => <Order 
                key={index}
                 order={order}
-             />)}
+             />)
+             
+             }
          
                   <p><b>Total Price:</b> {parseFloat(totalPrice()).toFixed(3)} DT</p>
          
        
              <button className="order_btn">to Order</button>
         </div>
+        :
+        <img src="../../no_commands.jpg" alt="no_image"
+        className="img_order"
+        />
     )
 }
 

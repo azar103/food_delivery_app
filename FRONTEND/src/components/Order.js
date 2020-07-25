@@ -5,8 +5,9 @@ import { RemoveFromCart } from '../reducers/actions'
 function Order(props) {
     
     const {name, price} = props.order
-    console.log(props.cart)
+
     return (
+          <>
             <div className="order_block"
             >
             <b>{name}</b>
@@ -17,6 +18,8 @@ function Order(props) {
                ></i> 
             </div>   
             </div>
+            <hr/>
+            </>
           
            
         )

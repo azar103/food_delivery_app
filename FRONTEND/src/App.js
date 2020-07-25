@@ -3,7 +3,6 @@ import './App.scss';
 import Nav from './components/Nav';
 import { Switch, Route } from 'react-router-dom';
 import Home from './components/Home';
-import Contact from './components/Contact';
 import AboutUs from './components/AboutUs';
 import Orders from './components/Orders';
 import Login from './components/Login';
@@ -17,7 +16,6 @@ function App() {
           <Route  exact path="/"  component={Home} />
           <Route  path="/foods/:id" component={SingleFood} />
           <Route  exact path="/foods"  component={Home} />
-          <Route  path="/contact" component={Contact} />
           <Route  path="/about"   component={AboutUs} />
           <Route  path="/orders"   component={Orders} />
           <Route  path="/login"   component={Login} /> 

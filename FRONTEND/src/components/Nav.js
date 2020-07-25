@@ -18,11 +18,21 @@ import { connect } from 'react-redux'
                  </li>   
                  <li>
                     <Link to="/about">About Us</Link>
-                 </li>    
-                 <li>
-                   <div className="notification">{props.cart.length}</div>  
+                 </li>   
+                 {
+                    props.cart.length > 0
+                    ?
+                    <li>
+                
+                    <div className="notification">{props.cart.length}</div>                 
                     <Link to="/orders"><i className="fa fa-shopping-cart"></i></Link>
+                   </li>  
+                  :
+                  <li>                  
+                  <Link to="/orders"><i className="fa fa-shopping-cart"></i></Link>
                  </li>  
+                 } 
+                
                  <li>
                     <Link to="/login">Login</Link>
                  </li>  

@@ -21,7 +21,7 @@
         }
         display: flex;
         justify-content: space-around;
-        margin-left: 30px;
+  
         .add-minus {
             color: var(--skin-color-primary);
             background-color: white;
@@ -39,12 +39,14 @@
     .order_btn {
         padding: 15px;
         background-color: var(--skin-color-primary);
+        text-align: left;
         color: white;
         border-radius: 10px;
         border: none;
         outline: none;
         cursor: pointer;
         margin-top: 40px;
+        margin-left: 0px;
         text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
         :hover {
             opacity: 0.8;
