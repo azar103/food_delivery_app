@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import './Orders.scss'
 import Order from './Order'
+import swal from 'sweetalert'
  function Orders(props) {
     
     const totalPrice = () => {
@@ -24,7 +25,11 @@ import Order from './Order'
                   <p><b>Total Price:</b> {parseFloat(totalPrice()).toFixed(3)} DT</p>
          
        
-             <button className="order_btn">to Order</button>
+             <button className="order_btn"
+             onClick={() => {
+                 swal('Order Confirmed', `total price :${parseFloat(totalPrice()).toFixed(3)} DT`, "success")
+             }}
+             >to Order</button>
         </div>
         :
         <img src="../../no_commands.jpg" alt="no_image"

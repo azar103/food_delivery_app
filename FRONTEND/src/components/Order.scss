@@ -4,7 +4,6 @@
     b{
        font-size: 15px;
        width: 200px;
-       text-align: left;
     }
     .delete_quantity_block{
         display: flex;
@@ -16,4 +15,8 @@
            cursor: pointer;
        }
     }
+}
+
+.order_btn {
+    cursor: pointer;
 }
