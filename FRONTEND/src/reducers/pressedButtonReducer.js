@@ -14,7 +14,7 @@ const pressedButton = (state = initialState, action) => {
         case NOT_PRESSED:
             return {
                 ...state,
-                isPressed: false
+                isPressed: false,
             }    
         default:
             return state    

@@ -1,54 +1,112 @@
 const User = require('../models/User')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const config = require('config')
 exports.createUser = (req, res, next) => {
-    bcrypt.hash(req.body.password, 10)
-          .then(hash => {
-            const user = new User({
-                lastName: req.body.lastName,
-                firstName: req.body.firstName,
-                email: req.body.email,
-                password: hash,
-                address: req.body.password,
-                tel: req.body.tel
-            });
-            user.save()
-                .then(() => res.status(201).json({message: 'Utiliasteur enregistré'}))
-                .catch(error => res.status(400).json({error}))
+   const {lastName, firstName, email, password, address, tel} = req.body
+   if(!lastName || !firstName || !email || !password || !address || !tel) {
+     return res.status(400).json({message: 'Please enter all fields!'})
+   }
+
+   User.findOne({email})
+       .then(user => {
+          if(user) return res.status(400).json({message: 'User already exist'})
+          const newUser = new User({
+            lastName,
+            firstName,
+            email,
+            password,
+            address,
+            tel
           })
-          .catch((error) => res.status(500).json({error}))
+          bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(newUser.password, salt, (err, hash) => {
+              if(err) throw err;
+              newUser.password = hash;
+              newUser.save()
+                     .then(user => {
+                             jwt.sign(
+                               {id: user.id},
+                               config.get('jwtSecret'),
+                               {expiresIn: 86400},
+                               (err, token) => {
+                                 if (err) throw err;
+                                 res.json({
+                                  token, 
+                                  user: {
+                                    id: user.id,
+                                    firstName: user.firstName,
+                                    lastName: user.lastName,
+                                    email: user.email,
+                                    password: user.password,
+                                    tel: user.tel,
+                                    address: user.address           
+                                 }
+                                })
+                               } 
+                             )
+                              
+                            }
+                      ) 
+                    
+                      
+                    }
+                     ) 
+            })
+          })
+          
+     
 }
 
 exports.login = (req, res, next) => {
-     User.findOne({email: req.body.email})
-         .then((user) => {
-             if(!user) {
-                 return res.status(401).json({error: 'Utilisteur non trouvé'})
-             }
-             bcrypt.compare(req.body.email, user.email)
-                   .then((valid) => {
-                       if(!valid) {
-                           return res.status.json({error:'Mot de passe non trouvé'})
-                       }
-                       res.status(200)
-                          .json({
-                              userId: user._id,
-                              token: jwt.sign({
-                                  userId: user._id,
-                              },
-                              'RANDOM_TOKEN_SECRET',
-                              {
-                                expiresIn :'24h'
-                              })
-                          });
-                   })
-         })
-         .catch(error => res.status(500).json({error}))
-}
+    const {email, password} = req.body
+    if(!email || !password) {
+      return res.status(400).json({message: 'Please enter all fields!'})
+    }
+ 
+    User.findOne({ email })
+      .then(user => {
+        if (!user) {
+          return res.status(401).json({ error: "User does not exist  !" });
+        }
+        bcrypt.compare(password, user.password)
+          .then(valid => {
+            if (!valid) {
+              return res.status(401).json({ error: 'password not exist !' });
+            }
+            jwt.sign(
+              {id: user.id},
+              'RANDOM_KEY_SECRET',
+              {expiresIn: 86400},
+              (err, token) => {
+                if(err) throw err;
+                res.json({
+                  token,
+                  user: {
+                    id: user.id,
+                    email: user.email,
+                    password: user.password,
+                    name: user.name
+     
+                  }
+                })
+              }
+        ) 
+          })
+          .catch(error => res.status(500).json({ error }));
+      })
+      .catch(error => res.status(500).json({ error }));
+  };
 
 exports.deleteUser = (req, res, next) => {
     User.deleteOne({_id: req.params.id})
         .then(() => res.status(200).json({message: 'Utilisateur supprimé'}))
         .catch(error => res.status(400).json({error}))
+ }
+
+ exports.getUser = (req, res) => {
+   User.find({_id: req.params.id})
+       .select('-password')
+       .then(user => res.json(user))
  }
 

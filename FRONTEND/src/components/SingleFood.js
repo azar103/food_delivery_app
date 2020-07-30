@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import './SingleFood.scss'
 import { AddToCart, pressButton } from '../reducers/actions';
+import Nav from './Nav';
+import { Link } from 'react-router-dom';
+import { logout } from '../reducers/authActions';
+import Logout from '../components/Logout'
+import NavAuth from './NavAuth';
 
 
 function SingleFood(props) {
@@ -9,6 +14,7 @@ function SingleFood(props) {
    
     const [counter, setCounter] = useState(1)
     const [price, setPrice] = useState(0)
+
 
 
     const getCount =() => {
@@ -32,14 +38,33 @@ function SingleFood(props) {
     const id = props.match.params.id 
   
     const foodObject = getFoodById(+id)
-
-    const update =() => {
-        const newObj = {...foodObject}
+    const getObj =() => {
+        const {email, lastName, firstName, tel} = props.profile[0];
+        const newObj = {
+            userId: props.user.id,
+            email: email,
+            lastName: lastName,
+            firstName: firstName,
+            telephone: tel,
+            ...foodObject
+        }
         newObj.price = getCount() * foodObject.price
+        console.log(newObj)
         return newObj
     }
+  
 
+    const handlePress = (id) => {
+       if(id === props.user.userId){
+           props.dispatch(pressButton())
+       }
+    }
+     
     return (
+        <>
+        <Nav>
+          <NavAuth />
+        </Nav>    
         <div className="card_container">
             <img src={foodObject.url} alt="food img" className="single_food_img"/>
             <div className="card_body">
@@ -47,8 +72,13 @@ function SingleFood(props) {
                   <p><b>price:</b> {parseFloat(getPrice(foodObject.price)).toFixed(3)}DT</p>
                   <p><b>City:</b> {foodObject.city}</p>
                   <p><b>ingredients:</b>{foodObject.ingredients.join(',')}</p>
+
                   {
-                      props.isPressed === false ?
+                      props.auth==false ?
+                      null
+                      :
+                      
+                      props.isPressed === false?
                       <div className="add-minus-group">
                       <button className="add-minus"
                       onClick={() => setCounter(counter+1)}
@@ -66,28 +96,35 @@ function SingleFood(props) {
                       onClick={() => setCounter(counter+1)}
                       >+</button>  
                       <span disabled>{getCount()}</span>
+                    
                       <button 
                       disabled
                       className="add-minus"
                       onClick={() => setCounter(counter-1)}
                        >-</button>  
                       </div> 
-
-
                   }
-                
+                  { props.auth == true &&
                   <button className="order_btn"
-                      onClick={() =>{
-                        const objUpdated = update();
-                        props.dispatch(AddToCart(objUpdated))
-                        props.dispatch(pressButton())
-                    }}
-                  >
-                  <i className="fa fa-shopping-cart fa-2x" aria-hidden="true" style={{color: "#FFF"}}  
+                  onClick={() =>{
+                    const objUpdated = getObj();
+                    console.log(""+props.cart) 
+                    props.dispatch(AddToCart(objUpdated))
+                    handlePress(props.user.userId)
+                }}
+              >
+                  
+                  
+                  <i className="fa fa-shopping-cart fa-2x" aria-hidden="true" 
+                  style={{color: "#FFF"}
+                  
+                }  
                   >Add to cart</i>
                   </button>
+             }
             </div>
         </div>
+        </>
     )
 }
 
@@ -95,7 +132,10 @@ const mapStateToProps = (state) => {
     return {
         foods: state.manageFoods.foods,
         cart: state.manageCart.cart,
-        isPressed: state.pressedButton.isPressed
+        isPressed: state.pressedButton.isPressed,
+        auth: state.authReducer.isAuthenticated,
+        user: state.authReducer.user,
+        profile: state.userReducer.user
     }
 }
 export default connect(mapStateToProps)(SingleFood)

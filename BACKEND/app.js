@@ -3,11 +3,14 @@ const app = express();
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/user');
 const bodyParser = require('body-parser');
-mongoose.connect('mongodb+srv://anis103:anis103@cluster0.9l7is.mongodb.net/FoodDeliveryDB?retryWrites=true&w=majority',
+const config = require('config')
+const db = config.get('mongoURI')
+mongoose.connect(db,
+
 {
-    useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex: true
 })
 .then(()=> console.log('Connexion  à MongoDB réussie !'))
 .catch(()=> console.log('Connexion  à MongoDB échouée !'))

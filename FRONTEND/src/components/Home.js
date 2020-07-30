@@ -4,13 +4,26 @@ import { connect } from 'react-redux'
 import { getFoods } from '../reducers/actions'
 import Food from './Food'
 import { Link } from 'react-router-dom'
+import Nav from './Nav'
+import axios from 'axios'
+import NavAuth from './NavAuth'
+import { getUser } from '../reducers/userActions'
  function Home(props) {
+
     const [inputValue, setInputValue] = useState('');
     const [selectedValue, setSelectedValue] = useState('');
+    const [name, setName] = useState('')
+    
+   useEffect(() => {
+              props.dispatch(getFoods())
+            if(props.profile.length > 0){
+                props.dispatch(getUser(props.profile[0].id))
+            }
 
-    useEffect(() => {
-        getFoods()
-    })
+          
+      
+   }, [])
+  
     const handleChange = (e) => {
         setInputValue(e.target.value)
     }
@@ -25,8 +38,12 @@ import { Link } from 'react-router-dom'
     const filteredFoodsByName= props.foods.filter(food => 
         food.name.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1
     )
+
     return (
         <>
+        <Nav>
+             <NavAuth/>  
+        </Nav>
         <section className="home_header">
             <div className="home_header_presentation">
                 <h1><span id="title_span">Quick Food</span> delivery</h1>
@@ -34,11 +51,15 @@ import { Link } from 'react-router-dom'
                     Order your foods at any time and we will deliver them directly to your home
                 </p>
                 <Link to="/orders">
+            {
+                props.auth === true &&
                 <button id="read_btn">
-   
                    Your orders
-         
                </button>
+               
+
+            }
+                
                </Link>  
             </div>
             <img id="header_image" src="../../header.jpg" alt="header_image"/> 
@@ -80,9 +101,6 @@ import { Link } from 'react-router-dom'
               }
                 
             </div>
-            <div className="add_food">
-                +
-            </div>
         </section>
         </>
     )
@@ -90,13 +108,13 @@ import { Link } from 'react-router-dom'
 
 const mapStateToProps =(state) => {
     return {
-        foods: state.manageFoods.foods
+        foods: state.manageFoods.foods,
+        cart: state.manageCart.cart,
+        auth: state.authReducer.isAuthenticated,
+        user: state.authReducer.user,
+        profile: state.userReducer
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        getFoods: () => dispatch(getFoods),
-    }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+
+export default connect(mapStateToProps)(Home)

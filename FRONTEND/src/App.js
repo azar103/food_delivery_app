@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.scss';
 import Nav from './components/Nav';
 import { Switch, Route } from 'react-router-dom';
@@ -8,11 +8,15 @@ import Orders from './components/Orders';
 import Login from './components/Login';
 import SingleFood from './components/SingleFood';
 import SignUp from './components/SignUp';
+import store from './store'
+import {loadUser} from './reducers/authActions';
+import { connect } from 'react-redux';
 
-function App() {
+function App(props) {
+
   return (
     <>
-      <Nav />
+
       <Switch>
           <Route  exact path="/"  component={Home} />
           <Route  path="/foods/:id" component={SingleFood} />
@@ -25,5 +29,4 @@ function App() {
     </>  
   );
 }
-
-export default App;
+export default App

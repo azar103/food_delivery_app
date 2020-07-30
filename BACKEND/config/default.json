@@ -1,0 +1,4 @@
+{
+    "mongoURI":"mongodb+srv://anis103:anis103@cluster0.9l7is.mongodb.net/FoodDeliveryDB?retryWrites=true&w=majority",
+    "jwtSecret":"sl_myJwtSecret"
+}
