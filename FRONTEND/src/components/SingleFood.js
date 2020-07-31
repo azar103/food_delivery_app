@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import './SingleFood.scss'
-import { AddToCart, pressButton } from '../reducers/actions';
+import { AddToCart } from '../reducers/actions';
 import Nav from './Nav';
-import { Link } from 'react-router-dom';
-import { logout } from '../reducers/authActions';
-import Logout from '../components/Logout'
+
 import NavAuth from './NavAuth';
 
 
@@ -17,6 +15,7 @@ function SingleFood(props) {
 
 
 
+
     const getCount =() => {
         if(counter < 0) {
             return 0
@@ -25,7 +24,7 @@ function SingleFood(props) {
         }
     }
     useEffect(() => {
-        setPrice(price*getCount())
+        setPrice(price*getCount())        
     })
    const getPrice =(price) => {
        return price * getCount()
@@ -42,6 +41,7 @@ function SingleFood(props) {
         const {email, lastName, firstName, tel} = props.profile[0];
         const newObj = {
             userId: props.user.id,
+            date: Date.now(),
             email: email,
             lastName: lastName,
             firstName: firstName,
@@ -49,17 +49,12 @@ function SingleFood(props) {
             ...foodObject
         }
         newObj.price = getCount() * foodObject.price
-        console.log(newObj)
+
         return newObj
     }
+    
   
 
-    const handlePress = (id) => {
-       if(id === props.user.userId){
-           props.dispatch(pressButton())
-       }
-    }
-     
     return (
         <>
         <Nav>
@@ -74,11 +69,10 @@ function SingleFood(props) {
                   <p><b>ingredients:</b>{foodObject.ingredients.join(',')}</p>
 
                   {
-                      props.auth==false ?
+                      props.auth===false ?
                       null
                       :
                       
-                      props.isPressed === false?
                       <div className="add-minus-group">
                       <button className="add-minus"
                       onClick={() => setCounter(counter+1)}
@@ -88,29 +82,20 @@ function SingleFood(props) {
                       onClick={() => setCounter(counter-1)}
                        >-</button>  
                       </div> 
-                      :
-                      <div className="add-minus-group">
-                      <button
-                      disabled
-                      className="add-minus"
-                      onClick={() => setCounter(counter+1)}
-                      >+</button>  
-                      <span disabled>{getCount()}</span>
-                    
-                      <button 
-                      disabled
-                      className="add-minus"
-                      onClick={() => setCounter(counter-1)}
-                       >-</button>  
-                      </div> 
+               
                   }
-                  { props.auth == true &&
+                  { props.auth === true &&
                   <button className="order_btn"
                   onClick={() =>{
                     const objUpdated = getObj();
-                    console.log(""+props.cart) 
-                    props.dispatch(AddToCart(objUpdated))
-                    handlePress(props.user.userId)
+                    const newObj = {
+                        ...objUpdated,
+                        isPressed: true
+                    }
+                    console.log(newObj)
+                    props.dispatch(AddToCart(newObj))
+               
+                    
                 }}
               >
                   
@@ -131,8 +116,7 @@ function SingleFood(props) {
 const mapStateToProps = (state) => {
     return {
         foods: state.manageFoods.foods,
-        cart: state.manageCart.cart,
-        isPressed: state.pressedButton.isPressed,
+        cart: state.manageCart,
         auth: state.authReducer.isAuthenticated,
         user: state.authReducer.user,
         profile: state.userReducer.user

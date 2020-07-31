@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import './Home.scss'
 import { connect } from 'react-redux'
-import { getFoods } from '../reducers/actions'
+import { getFoods, clearCart } from '../reducers/actions'
 import Food from './Food'
 import { Link } from 'react-router-dom'
 import Nav from './Nav'
-import axios from 'axios'
 import NavAuth from './NavAuth'
 import { getUser } from '../reducers/userActions'
  function Home(props) {
@@ -15,10 +14,13 @@ import { getUser } from '../reducers/userActions'
     const [name, setName] = useState('')
     
    useEffect(() => {
-              props.dispatch(getFoods())
-            if(props.profile.length > 0){
-                props.dispatch(getUser(props.profile[0].id))
+            props.dispatch(getFoods())
+            if(props.user !==null){
+                props.dispatch(getUser(props.user.id))
             }
+ 
+           console.log("cart"+props.cart)
+            
 
           
       

@@ -9,9 +9,9 @@ import Logout from './Logout'
 
 
  function NavAuth(props) {
-    const lengthOfCart = getLengthOfCart(props.auth, props.profile[0], props.cart)
-    
-    console.log(props.profile)
+    const lengthOfCart = getLengthOfCart(props.profile[0], props.cart)
+
+
     return (
         <>
              <li id="left">
@@ -20,7 +20,7 @@ import Logout from './Logout'
               <div id="right"> 
                 {
                     props.auth &&
-                    <li>{`Welcome, ${props.profile[0].lastName}`}</li> 
+                    <li>{`Welcome, ${props.profile[0].firstName}`}</li> 
                 } 
         
                  <li>

@@ -11,6 +11,8 @@ import SignUp from './components/SignUp';
 import store from './store'
 import {loadUser} from './reducers/authActions';
 import { connect } from 'react-redux';
+import { clearCart } from './reducers/actions';
+import Dhashboard from './components/admin/Dashboard';
 
 function App(props) {
 
@@ -25,6 +27,8 @@ function App(props) {
           <Route  path="/orders"   component={Orders} />
           <Route  path="/login"   component={Login} /> 
           <Route  path="/signup"   component={SignUp} /> 
+          <Route path="/admin" component={Dhashboard}/>
+        
       </Switch>
     </>  
   );

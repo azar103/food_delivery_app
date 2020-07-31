@@ -17,14 +17,3 @@ export const clearCart = () => ({
     type: CLEAR_CART
 })
 
-
-export const pressButton = () => ({
-    type: PRESSED
-})
-
-
-export const notPressedButton = () => ({
-    type: NOT_PRESSED
-})
-
-

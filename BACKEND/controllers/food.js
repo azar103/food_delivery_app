@@ -14,5 +14,8 @@ exports.createFood = (req, res, next) => {
         .save(err => res.status(500).json({err}))
 }
 exports.deleteFood = (req, res, next) => {
-    
+    Food.deleteOne({_id: req.params._id})
+        .then(res => res.status(200).json({message: 'Food deleted!'}))
+        .save(err => res.status(500).json({err}))
+
 }

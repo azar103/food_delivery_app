@@ -1,15 +1,15 @@
 const {  ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } = require("./actionTypes")
 
 const initialState = {
-    cart: [],
-    
+    cart: []
 }
 
 const manageCart = (state = initialState, action) => {
     switch(action.type) {
         case ADD_TO_CART:
-           const index = state.cart.findIndex(item => item.id === action.value.id && item.userId === action.value.userId)  
-           if(index == -1) {
+           const index = state.cart.findIndex(item => {console.log(item.id) 
+            return item.id === action.value.id && item.userId === action.value.userId})  
+           if(index === -1) {
             return {
                 ...state,
                 cart: [...state.cart, action.value]
@@ -26,7 +26,6 @@ const manageCart = (state = initialState, action) => {
                     ...state,
                     cart : state.cart.filter((item, index) => index !== indexRemoved)
                 }
-
                 return newState
              }
        case CLEAR_CART:

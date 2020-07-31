@@ -3,35 +3,6 @@ import { USER_LOADING, USER_LOADED, AUTH_ERROR, REGISTER_SUCCESS, REGISTER_FAIL,
 import axios from 'axios'
 import { returnErrors } from "./errorActions"
 
-export const loadUser = () => (dispatch, getState) => {
-    //User Loading
-    dispatch({type: USER_LOADING})
-    //GET TOKEN FROM Local Storage
-    const token = getState().authReducer.token;
-    const config = {
-        headers: {
-            "Content-type":"application/json"
-        }
-    }
-    if(token) {
-          config.headers['x-auth-token'] = token;
-    }
-    axios.get('http://localhost:4000/api/users/user', config)
-         .then(res => {
-             dispatch({
-                 type: USER_LOADED,
-                 payload: res.data
-             })
-         })
-         .catch(err => 
-            {
-                dispatch(returnErrors(err.response.data, err.response.status))
-                dispatch({
-                    type: AUTH_ERROR
-                })
-            }
-            )
-}
 
 export const registerUser = ({firstName, lastName, email, password, tel, address}) =>(dispatch) => {
     const config = {

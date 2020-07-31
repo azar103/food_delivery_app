@@ -1,9 +1,8 @@
-const {  USER_LOADING, USER_LOADED, LOGIN_SUCCESS, REGISTER_SUCCESS, AUTH_ERROR, LOGIN_FAIL, REGISTER_FAIL, LOGOUT_SUCCESS, CREATE_USER } = require("./actionTypes")
+const { LOGIN_SUCCESS, REGISTER_SUCCESS, AUTH_ERROR, LOGIN_FAIL, REGISTER_FAIL, LOGOUT_SUCCESS, CREATE_USER } = require("./actionTypes")
 
 const initialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: false,
-    isLoading: false,
     user: null,
     redirectTo: false
 }
@@ -11,18 +10,6 @@ const initialState = {
 
 const authReducer = (state=initialState, action) => {
     switch(action.type)  {
-        case USER_LOADING:
-            return {
-                ...state,
-                isLoading: true
-            }
-        case USER_LOADED:
-            return {
-                ...state, 
-                isAuthenticated: true,
-                isLoading: false,
-                user: action.payload
-            }   
         case REGISTER_SUCCESS: 
         localStorage.setItem('token', action.payload.token)
         return {
@@ -47,7 +34,6 @@ const authReducer = (state=initialState, action) => {
            token :null,
            user: null,
            isAuthenticated: false,
-           isLoading: false,
            redirectTo: false
         }
         default:

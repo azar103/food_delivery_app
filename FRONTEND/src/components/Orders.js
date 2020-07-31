@@ -12,11 +12,12 @@ import { clearCart } from '../reducers/actions'
 
  function Orders(props) {
    
-    const lengthOfCart = getLengthOfCart(props.auth, props.profile[0], props.cart)
+    const lengthOfCart = getLengthOfCart( props.profile[0], props.cart)
  
 
-  const cartFiltered = cartFilteredById(props.cart, props.user.id)
-  console.log("filtered :"+JSON.stringify(cartFiltered))
+  const cartFiltered = cartFilteredById(props.cart, props.profile[0]._id)
+
+ 
    
     return(
         lengthOfCart>0
@@ -41,13 +42,7 @@ import { clearCart } from '../reducers/actions'
                  swal('Order Confirmed', `total price :${parseFloat(totalPrice(props.cart).toFixed(3))} DT`, "success")
              }}
              >to Order</button>
-             
-            {/**
-             * <button
-              onClick={() => props.dispatch(clearCart())}
-              >CLEAR ALL</button>
-             */}  
-             
+    
             
         </div>
         </>
@@ -59,6 +54,14 @@ import { clearCart } from '../reducers/actions'
         <img src="../../no_commands.jpg" alt="no_image"
         className="img_order"
         />
+        {/**
+         *  <button
+              onClick={() => props.dispatch(clearCart())}
+              >CLEAR ALL</button>
+         */}
+             
+             
+             
         </>
     )
 }
