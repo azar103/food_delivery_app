@@ -2,6 +2,7 @@ const User = require('../models/User')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('config')
+
 exports.createUser = (req, res, next) => {
    const {lastName, firstName, email, password, address, tel} = req.body
    if(!lastName || !firstName || !email || !password || !address || !tel) {
@@ -26,7 +27,7 @@ exports.createUser = (req, res, next) => {
               newUser.save()
                      .then(user => {
                              jwt.sign(
-                               {id: user.id},
+                               {id: user._id},
                                config.get('jwtSecret'),
                                {expiresIn: 86400},
                                (err, token) => {
@@ -34,7 +35,7 @@ exports.createUser = (req, res, next) => {
                                  res.json({
                                   token, 
                                   user: {
-                                    id: user.id,
+                                    id: user._id,
                                     firstName: user.firstName,
                                     lastName: user.lastName,
                                     email: user.email,
@@ -75,7 +76,7 @@ exports.login = (req, res, next) => {
               return res.status(401).json({ error: 'password not exist !' });
             }
             jwt.sign(
-              {id: user.id},
+              {id: user._id},
               'RANDOM_KEY_SECRET',
               {expiresIn: 86400},
               (err, token) => {
@@ -83,7 +84,7 @@ exports.login = (req, res, next) => {
                 res.json({
                   token,
                   user: {
-                    id: user.id,
+                    id: user._id,
                     email: user.email,
                     password: user.password,
                     name: user.name
@@ -102,11 +103,19 @@ exports.deleteUser = (req, res, next) => {
     User.deleteOne({_id: req.params.id})
         .then(() => res.status(200).json({message: 'Utilisateur supprimé'}))
         .catch(error => res.status(400).json({error}))
+
  }
 
+exports.getUsers = (req, res, next) => {
+  User.find()
+    .then(users => res.status(200).json(users))
+    .catch(error => res.status(400).json({ error }))
+
+}
  exports.getUser = (req, res) => {
    User.find({_id: req.params.id})
        .select('-password')
        .then(user => res.json(user))
  }
+
 

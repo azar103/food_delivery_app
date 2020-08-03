@@ -5,6 +5,7 @@ import { AddToCart } from '../reducers/actions';
 import Nav from './Nav';
 
 import NavAuth from './NavAuth';
+import { getOneFood } from '../reducers/foodActions';
 
 
 function SingleFood(props) {
@@ -13,8 +14,12 @@ function SingleFood(props) {
     const [counter, setCounter] = useState(1)
     const [price, setPrice] = useState(0)
 
-
-
+    useEffect(() => {
+        props.dispatch(getOneFood(props.match.params.id))    
+        setPrice(price*getCount())    
+     
+    },[])
+   
 
     const getCount =() => {
         if(counter < 0) {
@@ -23,37 +28,31 @@ function SingleFood(props) {
             return counter
         }
     }
-    useEffect(() => {
-        setPrice(price*getCount())        
-    })
+  
    const getPrice =(price) => {
        return price * getCount()
    }
-   const getFoodById = (id) => {
-        const foodObject = props.foods.find(food => food.id === id);
-  
-        return foodObject;
-    }
-    const id = props.match.params.id 
-  
-    const foodObject = getFoodById(+id)
+
+
     const getObj =() => {
-        const {email, lastName, firstName, tel} = props.profile[0];
+        const {email, lastName, firstName, tel, address} = props.profile[0];
         const newObj = {
             userId: props.user.id,
             date: Date.now(),
             email: email,
             lastName: lastName,
             firstName: firstName,
+            address: address,
             telephone: tel,
-            ...foodObject
+            ...props.food
         }
-        newObj.price = getCount() * foodObject.price
+        newObj.price = getCount() * props.food.price
 
         return newObj
     }
-    
-  
+    console.log(props.user)
+
+
 
     return (
         <>
@@ -61,13 +60,13 @@ function SingleFood(props) {
           <NavAuth />
         </Nav>    
         <div className="card_container">
-            <img src={foodObject.url} alt="food img" className="single_food_img"/>
+            <img src={props.food.url} alt="food img" className="single_food_img"/>
             <div className="card_body">
-                  <h3>{foodObject.name}</h3>    
-                  <p><b>price:</b> {parseFloat(getPrice(foodObject.price)).toFixed(3)}DT</p>
-                  <p><b>City:</b> {foodObject.city}</p>
-                  <p><b>ingredients:</b>{foodObject.ingredients.join(',')}</p>
-
+                  <h3>{props.food.name}</h3>    
+                  <p><b>price:</b> {parseFloat(getPrice(props.food.price)).toFixed(3)}DT</p>
+                  <p><b>City:</b> {props.food.city}</p>
+                     <p><b>Ingredients:</b>{props.food.ingredients.join(',')}</p>
+          
                   {
                       props.auth===false ?
                       null
@@ -92,7 +91,6 @@ function SingleFood(props) {
                         ...objUpdated,
                         isPressed: true
                     }
-                    console.log(newObj)
                     props.dispatch(AddToCart(newObj))
                
                     
@@ -115,7 +113,8 @@ function SingleFood(props) {
 
 const mapStateToProps = (state) => {
     return {
-        foods: state.manageFoods.foods,
+        foods: state.foodReducer.foods,
+        food: state.foodReducer.food,
         cart: state.manageCart,
         auth: state.authReducer.isAuthenticated,
         user: state.authReducer.user,

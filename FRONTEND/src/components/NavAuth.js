@@ -9,8 +9,14 @@ import Logout from './Logout'
 
 
  function NavAuth(props) {
-    const lengthOfCart = getLengthOfCart(props.profile[0], props.cart)
-
+    const getLength = () => {
+        if(props.user.length === 0) {
+            return 0
+        }else {
+            return getLengthOfCart(props.cart, props.user[0])
+        }
+    }    
+console.log(props.user[0])
 
     return (
         <>
@@ -19,8 +25,8 @@ import Logout from './Logout'
               </li>    
               <div id="right"> 
                 {
-                    props.auth &&
-                    <li>{`Welcome, ${props.profile[0].firstName}`}</li> 
+                    props.auth && props.user[0]&&
+                    <li>{`Welcome, ${props.user[0].firstName}`}</li> 
                 } 
         
                  <li>
@@ -31,12 +37,12 @@ import Logout from './Logout'
                  </li>   
 
                  {
-                    lengthOfCart > 0
+                    getLength() > 0
                     ?
                    props.auth &&
                     <li>
                 
-                    <div className="notification">{lengthOfCart}</div>                 
+                    <div className="notification">{getLength()}</div>                 
                     <Link to="/orders"><i className="fa fa-shopping-cart"></i></Link>
                    </li>  
                   :
@@ -62,7 +68,8 @@ const mapStateToProps = (state) => {
     return {
         cart: state.manageCart.cart,
         auth: state.authReducer.isAuthenticated,
-        profile: state.userReducer.user
+        profile: state.userReducer.users,
+        user: state.userReducer.user
     }
 }
 

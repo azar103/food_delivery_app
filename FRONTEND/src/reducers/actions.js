@@ -1,8 +1,6 @@
-import { FETCH_FOODS, ADD_TO_CART, REMOVE_FROM_CART, PRESSED, NOT_PRESSED, LOGIN, LOGOUT, CLEAR_CART } from "./actionTypes";
+import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from "./actionTypes";
 
-export const getFoods = () => ({
-    type: FETCH_FOODS
-})
+
 
 export const AddToCart = (item) => ({
     type: ADD_TO_CART,

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import './Home.scss'
 import { connect } from 'react-redux'
-import { getFoods, clearCart } from '../reducers/actions'
+
+import { getFoods } from '../reducers/foodActions'
 import Food from './Food'
 import { Link } from 'react-router-dom'
 import Nav from './Nav'
@@ -12,20 +13,15 @@ import { getUser } from '../reducers/userActions'
     const [inputValue, setInputValue] = useState('');
     const [selectedValue, setSelectedValue] = useState('');
     const [name, setName] = useState('')
-    
+    console.log(props.cart)
    useEffect(() => {
             props.dispatch(getFoods())
             if(props.user !==null){
                 props.dispatch(getUser(props.user.id))
-            }
- 
-           console.log("cart"+props.cart)
-            
-
-          
+            }       
       
    }, [])
-  
+   
     const handleChange = (e) => {
         setInputValue(e.target.value)
     }
@@ -59,7 +55,6 @@ import { getUser } from '../reducers/userActions'
                    Your orders
                </button>
                
-
             }
                 
                </Link>  
@@ -77,6 +72,7 @@ import { getUser } from '../reducers/userActions'
                   <select
                     onChange={(value) => handleChangeSelectValue(value)}
                     value={selectedValue}
+                    className="custom-select"
                     id="select"
                   >
                       <option value="Select a city" selected>Select a city</option>
@@ -110,11 +106,12 @@ import { getUser } from '../reducers/userActions'
 
 const mapStateToProps =(state) => {
     return {
-        foods: state.manageFoods.foods,
+        foods: state.foodReducer.foods,
+        food: state.foodReducer.food,
         cart: state.manageCart.cart,
         auth: state.authReducer.isAuthenticated,
         user: state.authReducer.user,
-        profile: state.userReducer
+        profile: state.userReducer.user
     }
 }
 

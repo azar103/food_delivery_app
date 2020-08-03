@@ -1,0 +1,45 @@
+
+.container_dashboard {
+    display: flex;
+    height: 1000px;  
+
+}
+
+
+.left {
+    width: 20%;
+    background-color: #2C8CE2;
+    padding: 20px;
+    height: 100%;
+    .title {
+        color: #DFFFFF;
+    }
+    .sections{
+        display: flex;
+        flex-direction: column;
+        color:#DFFFFF;
+    }
+}
+
+.right {
+    width: 80%;
+    padding: 30px;
+}
+
+
+@media  screen and (max-width: 411px) {
+    .left {
+        width: 20%;
+        .title {
+            font-size: 15px;
+            margin-right: 14px;
+        }
+        .sections {
+            font-size: 15px;
+            text-align: center;
+        }
+    }
+    .right {
+        width: 80%;
+    }
+}

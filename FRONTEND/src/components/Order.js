@@ -5,7 +5,7 @@ import { RemoveFromCart } from '../reducers/actions'
 function Order(props) {
     
     const { name, price} = props.order
-    const notPressed = () =>{
+    const removeFromCart = () =>{
         props.dispatch(RemoveFromCart(props.order))
     }
     return (
@@ -18,7 +18,7 @@ function Order(props) {
                <i className="fa fa-trash"
                onClick={()=> 
                 {
-                  notPressed()
+                  removeFromCart()
                 }
                  
             }
@@ -35,8 +35,7 @@ function Order(props) {
 
 const mapStateToProps = (state) => {
    return {
-       cart: state.manageCart.cart,
-       isPressed: state.pressedButton.isPressed
+       cart: state.manageCart.cart
    }
 }
 export default  connect(mapStateToProps)(Order);

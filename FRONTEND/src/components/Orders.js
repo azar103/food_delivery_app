@@ -12,22 +12,28 @@ import { clearCart } from '../reducers/actions'
 
  function Orders(props) {
    
-    const lengthOfCart = getLengthOfCart( props.profile[0], props.cart)
- 
+  const getLength = () => {
+    if(props.user === 0) {
+        return 0
+    }else {
+        return getLengthOfCart(props.cart, props.user[0])
+    }
+}    
 
-  const cartFiltered = cartFilteredById(props.cart, props.profile[0]._id)
+console.log(getLengthOfCart())
 
- 
-   
+   const cartFiltered = cartFilteredById(props.cart, props.user[0]._id)
+
+
     return(
-        lengthOfCart>0
+        getLength()>0
         ?    
         <>
          <Nav >
           <NavAuth />
          </Nav>    
         <div className="orders_container">
-             <h2>{lengthOfCart} command(s)</h2>
+             <h2>{getLength()} command(s)</h2>
              {cartFiltered.map((order, index) => <Order 
                key={index}
                 order={order}
@@ -42,7 +48,9 @@ import { clearCart } from '../reducers/actions'
                  swal('Order Confirmed', `total price :${parseFloat(totalPrice(props.cart).toFixed(3))} DT`, "success")
              }}
              >to Order</button>
-    
+     <button
+              onClick={() => props.dispatch(clearCart())}
+              >CLEAR ALL</button>
             
         </div>
         </>
@@ -54,14 +62,10 @@ import { clearCart } from '../reducers/actions'
         <img src="../../no_commands.jpg" alt="no_image"
         className="img_order"
         />
-        {/**
-         *  <button
+        
+          <button
               onClick={() => props.dispatch(clearCart())}
               >CLEAR ALL</button>
-         */}
-             
-             
-             
         </>
     )
 }
@@ -70,8 +74,8 @@ const mapStateToProps = (state) => {
     return {
         cart: state.manageCart.cart,
         auth: state.authReducer.isAuthenticated,
-        user: state.authReducer.user,
-        profile: state.userReducer.user
+        profile: state.userReducer.users,
+        user: state.userReducer.user
     }
 }
 export default connect(mapStateToProps)(Orders)

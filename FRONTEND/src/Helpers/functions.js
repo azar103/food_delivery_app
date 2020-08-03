@@ -1,9 +1,13 @@
-export const  getLengthOfCart =(user, cart) => {
-       
-        const newArr = cart.filter(item => item!=null && item.userId === user._id)
-        return newArr.length
+export const  getLengthOfCart =(cart, user) => {
+    if(user ==null){
+        return 0
+    }
+    const newArr = cart.filter(item => item!=null &&  item.userId === user._id)
+    return newArr.length
+    
 
- }
+
+}
 
  export const cartFilteredById = (cart,id) => {
     const newArr = cart.filter(item => item!=null && item.userId === id)
