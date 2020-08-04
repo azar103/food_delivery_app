@@ -11,7 +11,7 @@ export const getFoods =() => dispatch => {
          })
 }
 export const createFood = (food) => dispatch => {
-    axios.post('http://localhost:4000/api/foods', food)
+    axios.post('/api/foods', food)
          .then((res) => {
              dispatch({
                  type: CREATE_FOOD,
@@ -22,7 +22,7 @@ export const createFood = (food) => dispatch => {
 
 
 export const deleteFood = (id) => dispatch => {
-    axios.delete(`http://localhost:4000/api/foods/${id}`)
+    axios.delete(`/api/foods/${id}`)
         .then(() => {
             dispatch({
                 type: DELETE_FOOD,
@@ -32,7 +32,7 @@ export const deleteFood = (id) => dispatch => {
 }
 
 export const getOneFood = (id) => dispatch => {
-    axios.get(`http://localhost:4000/api/foods/${id}`)
+    axios.get(`/api/foods/${id}`)
          .then((res) => {
              dispatch({
                  type: GET_FOOD,

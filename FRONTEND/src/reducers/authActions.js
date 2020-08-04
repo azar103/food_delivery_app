@@ -34,7 +34,7 @@ export const login = ({ email, password}) =>(dispatch) => {
         }
     }
     const body = JSON.stringify({email, password})
-    axios.post('http://localhost:4000/api/users/login', body, config)
+    axios.post('/api/users/login', body, config)
         .then((res) => {
             dispatch({
                 type: LOGIN_SUCCESS,
