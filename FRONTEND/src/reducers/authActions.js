@@ -11,7 +11,7 @@ export const registerUser = ({firstName, lastName, email, password, tel, address
         }
     }
     const body = JSON.stringify({firstName, lastName, email, password, tel, address})
-    axios.post('http://localhost:4000/api/users', body, config)
+    axios.post('/api/users', body, config)
         .then((res) => {
             dispatch({
                 type: REGISTER_SUCCESS,

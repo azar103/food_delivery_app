@@ -20,7 +20,7 @@ import { clearCart } from '../reducers/actions'
     }
 }    
 
-console.log(getLengthOfCart())
+
 
    const cartFiltered = cartFilteredById(props.cart, props.user[0]._id)
 
@@ -43,14 +43,6 @@ console.log(getLengthOfCart())
             <p><b>Total Price:</b> {parseFloat(totalPrice(props.cart)).toFixed(3)} DT</p>
          
        
-             <button className="order_btn"
-             onClick={() => {
-                 swal('Order Confirmed', `total price :${parseFloat(totalPrice(props.cart).toFixed(3))} DT`, "success")
-             }}
-             >to Order</button>
-     <button
-              onClick={() => props.dispatch(clearCart())}
-              >CLEAR ALL</button>
             
         </div>
         </>

@@ -1,3 +1,5 @@
+import swal from "sweetalert"
+
 const {  ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, DELETE_USER, DELETE_USER_AND_COMMANDS } = require("./actionTypes")
 
 const initialState = {
@@ -7,13 +9,14 @@ const initialState = {
 const manageCart = (state = initialState, action) => {
     switch(action.type) {
         case ADD_TO_CART:
-           const index = state.cart.findIndex(item => {console.log(item.id) 
-            return item.id === action.value.id && item.userId === action.value.userId})  
+           const index = state.cart.findIndex(item => {
+            return item._id === action.value._id && item.userId === action.value.userId})  
            if(index === -1) {
             return {
                 ...state,
                 cart: [...state.cart, action.value]
              }
+           
            }else {
                return {
                    ...state

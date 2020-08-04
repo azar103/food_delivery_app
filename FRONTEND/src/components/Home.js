@@ -4,21 +4,23 @@ import { connect } from 'react-redux'
 
 import { getFoods } from '../reducers/foodActions'
 import Food from './Food'
-import { Link } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import Nav from './Nav'
 import NavAuth from './NavAuth'
 import { getUser } from '../reducers/userActions'
+
  function Home(props) {
 
     const [inputValue, setInputValue] = useState('');
     const [selectedValue, setSelectedValue] = useState('');
-    const [name, setName] = useState('')
     console.log(props.cart)
    useEffect(() => {
             props.dispatch(getFoods())
             if(props.user !==null){
                 props.dispatch(getUser(props.user.id))
             }       
+
+
       
    }, [])
    
@@ -29,13 +31,16 @@ import { getUser } from '../reducers/userActions'
     const handleChangeSelectValue = (e) => {
         setSelectedValue(e.target.value)
     }
+    console.log(props.foods)
     const filteredFoodsByNameAndCity = props.foods.filter(food => 
         food.name.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1 &&
         food.city.toLowerCase().indexOf(selectedValue.toLowerCase()) !== -1
     )
     const filteredFoodsByName= props.foods.filter(food => 
         food.name.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1
-    )
+    ) 
+
+
 
     return (
         <>
@@ -87,15 +92,15 @@ import { getUser } from '../reducers/userActions'
             <div className="foods_container">
               {
               selectedValue !== 'Select a city' ?
-              filteredFoodsByNameAndCity.length>0 && filteredFoodsByNameAndCity.map((food, index) => <Food
+              filteredFoodsByNameAndCity.length>0 && filteredFoodsByNameAndCity.slice(filteredFoodsByNameAndCity.length-6).map((food, index) => <Food
                 key={index}
                 food={food}
-              />)
+              />).reverse()
               :
-              filteredFoodsByName.length>0 && filteredFoodsByName.map((food, index) => <Food
+              filteredFoodsByName.length>0 && filteredFoodsByName.slice(filteredFoodsByName.length-6).map((food, index) => <Food
                 key={index}
                 food={food}
-              />)
+              />).reverse()
               }
                 
             </div>
@@ -107,7 +112,6 @@ import { getUser } from '../reducers/userActions'
 const mapStateToProps =(state) => {
     return {
         foods: state.foodReducer.foods,
-        food: state.foodReducer.food,
         cart: state.manageCart.cart,
         auth: state.authReducer.isAuthenticated,
         user: state.authReducer.user,

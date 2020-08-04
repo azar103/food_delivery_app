@@ -21,4 +21,5 @@ export const CREATE_FOOD = "CREATE_FOOD"
 export const DELETE_FOOD = "DELETE_FOOD"
 export const EDIT_FOOD ="EDIT_FOOD"
 export const GET_FOOD ="GET_FOOD"
+export const CLEAR_ALL_FOOD ="CLEAR_ALL_FOOD"
 

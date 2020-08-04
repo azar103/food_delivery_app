@@ -15,12 +15,12 @@ import UserSheet from './components/admin/UserSheet';
 import UsersDashboard from './components/admin/UsersDashboard';
 import DeletedUser from './components/admin/DeletedUser';
 import AddFood from './components/admin/AddFood';
+import EditFood from './components/admin/EditFood';
+import DeleteFood from './components/admin/DeleteFood';
 
-function App(props) {
+function App() {
 
   return (
-    <>
-
       <Switch>
           <Route  exact path="/"  component={Home} />
           <Route  path="/foods/:id" component={SingleFood} />
@@ -30,16 +30,16 @@ function App(props) {
           <Route  path="/login"   component={Login} /> 
           <Route  path="/signup"   component={SignUp} /> 
           <Route path="/admin/newFood" component={AddFood} />
+
+          <Route path="/admin/foods/:id" component={EditFood}/>
           <Route path="/admin/foods" component={FoodsDashboard} />
           <Route path="/admin/users/:id" component={DeletedUser} />
           <Route  path="/admin/users" component={UsersDashboard} />
           <Route path="/admin/orders" component={OrdersDashboard}/>
           <Route path="/admin/user/:id" component={UserSheet} />
-
-          <Route  path="/admin" component={HomeDashboard}/>
-      
+          <Route path="/admin/delete/:id" component={DeleteFood} />
+          <Route  path="/admin" component={HomeDashboard}/>   
       </Switch>
-    </>  
   );
 }
 export default App

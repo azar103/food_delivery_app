@@ -1,53 +1,51 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DashboardModal from './DashboardModal'
-import './AddFood.scss'
 import { connect } from 'react-redux'
+import { getOneFood, editFood } from '../../reducers/foodActions'
 import swal from 'sweetalert'
-import { createFood } from '../../reducers/foodActions'
- function AddFood(props) {
-   const [name, setName] = useState('')
-   const [city, setCity] = useState('')
-   const [price, setPrice] = useState('')
-   const [url, setUrl] = useState('')
-   const [ingredients, setIngredients] = useState('') 
+import { Redirect } from 'react-router-dom'
 
+ function EditFood(props) {
+
+    useEffect(() => {
+        props.dispatch(getOneFood(props.match.params.id))
+    },[])
+    
+    
+    const [name, setName] = useState(props.food.name)
+    const [city, setCity] = useState(props.food.city)
+    const [price, setPrice] = useState(props.food.price)
+    const [url, setUrl] = useState(props.food.url)
+    const [ingredients, setIngredients] = useState(props.food.ingredients) 
+   
 
    const onHandleChangeName =(e) => {
-       setName(e.target.value)
-   }
-   const onHandleChangeCity = (e) => {
-       setCity(e.target.value)
-   }
-   const onHandleChangePrice =(e) => {
-       setPrice(e.target.value)
-   }
-   const onHandleChangeUrl = (e) => {
-       setUrl(e.target.value)
-   }
-   const onHandleChangeIngredients =(e) => {
-       setIngredients(e.target.value.split(','))
-   }
+    setName(e.target.value)
+  }
 
-   const addFood  = (name, city, price, url, ingredients) => {
+const onHandleChangeCity = (e) => {
+    setCity(e.target.value)
+}
+const onHandleChangePrice =(e) => {
+    setPrice(e.target.value)
+}
+const onHandleChangeUrl = (e) => {
+    setUrl(e.target.value)
+}
+const onHandleChangeIngredients =(e) => {
+    setIngredients(e.target.value.split(','))
+}
 
+const updateFood = (e,food) => {
+    e.preventDefault()
+    props.dispatch(editFood(props.match.params.id, food))
+    swal('Food Updated', "", 'success')
+  }
 
-         props.dispatch(createFood({name, city, price, url, ingredients}))
-
-         swal('Food Added', "", "success")
-
-   }
     return (
         <DashboardModal>
-            <form className="form-group"
-            onSubmit={(e) => {
-                e.preventDefault()
-                addFood(name, city, price, url, ingredients)
-                setName('')
-                setCity('')
-                setPrice('')
-                setUrl('')
-                setIngredients('')
-            }}
+           <form className="form-group"
+               onSubmit={(e) => updateFood(e, {name, city, price, url, ingredients})}
             >
                   <label><b>Food Name</b></label>
                   <input type="text"  
@@ -55,7 +53,7 @@ import { createFood } from '../../reducers/foodActions'
                          className="input"
                          name="name"
                          value={name}
-                         onChange={e => onHandleChangeName(e)}
+                         onChange={e => onHandleChangeName(e)}       
                          />
                 <label><b>City</b></label>      
                   <input 
@@ -72,7 +70,7 @@ import { createFood } from '../../reducers/foodActions'
                          placeholder="price..." 
                          className="input"
                          name="price"
-                         value={price}
+                         value={parseFloat(price).toFixed(3)}
                          onChange={e => onHandleChangePrice(e)}
                          />
                    <label><b>url of image</b></label>               
@@ -90,20 +88,20 @@ import { createFood } from '../../reducers/foodActions'
                          placeholder="ingredients..." 
                          name="ingredients"
                          value={ingredients}
-                         onChange={e => onHandleChangeIngredients(e)}
+                        onChange={e => onHandleChangeIngredients(e)}
                          ></textarea>
-                   <input type="submit" value="create food" 
+                   <input type="submit" value="edit food" 
                    className="btn_submit"
                    />    
                </form>
-        
         </DashboardModal>
     )
 }
 
-const mapStateToProps =(state) => {
-   return {
-       foods: state.foodReducer.foods
-   }
+const mapStateToProps = (state) => {
+    return {
+        foods: state.foodReducer.foods,
+        food: state.foodReducer.food
+    }
 }
-export default connect(mapStateToProps)(AddFood)
+export default connect(mapStateToProps)(EditFood)

@@ -5,5 +5,6 @@ router.get('/', foodCtrl.getAllFoods)
 router.post('/', foodCtrl.createFood)
 router.delete('/:id', foodCtrl.getAllFoods)
 router.get('/:id', foodCtrl.getOneFood)
+router.put('/:id', foodCtrl.editFood)
 
 module.exports = router

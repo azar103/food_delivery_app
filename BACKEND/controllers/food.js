@@ -16,11 +16,18 @@ exports.createFood = (req, res, next) => {
         ...req.body
     })
     food.save()
-        .then(() => res.status(201).json({message: 'Food Created!!'}))
+        .then((item) => res.status(201).json(item))
         .catch(err => res.status(500).json({err}))
 }
 exports.deleteFood = (req, res, next) => {
     Food.deleteOne({_id: req.params.id})
         .then(res => res.status(200).json({message: 'Food deleted!'}))
-        .save(err => res.status(500).json({err}))
+        .catch(err => res.status(500).json({err}))
 }
+
+exports.editFood = (req, res, next) => {
+    Food.updateOne({_id: req.params.id}, {...req.body, _id: req.params.id})
+        .then(res => status(200).json({message: 'Food Updates'}))
+        .catch(err => res.status(500).json({err}))
+    
+    }

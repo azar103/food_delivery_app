@@ -6,6 +6,7 @@ import Nav from './Nav';
 
 import NavAuth from './NavAuth';
 import { getOneFood } from '../reducers/foodActions';
+import swal from 'sweetalert';
 
 
 function SingleFood(props) {
@@ -17,8 +18,9 @@ function SingleFood(props) {
     useEffect(() => {
         props.dispatch(getOneFood(props.match.params.id))    
         setPrice(price*getCount())    
-     
     },[])
+
+
    
 
     const getCount =() => {
@@ -32,6 +34,8 @@ function SingleFood(props) {
    const getPrice =(price) => {
        return price * getCount()
    }
+
+   console.log(props.food)
 
 
     const getObj =() => {
@@ -50,7 +54,6 @@ function SingleFood(props) {
 
         return newObj
     }
-    console.log(props.user)
 
 
 
@@ -80,8 +83,7 @@ function SingleFood(props) {
                       <button className="add-minus"
                       onClick={() => setCounter(counter-1)}
                        >-</button>  
-                      </div> 
-               
+                      </div>     
                   }
                   { props.auth === true &&
                   <button className="order_btn"
@@ -92,6 +94,7 @@ function SingleFood(props) {
                         isPressed: true
                     }
                     props.dispatch(AddToCart(newObj))
+                   
                
                     
                 }}

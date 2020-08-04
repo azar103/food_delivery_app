@@ -1,8 +1,8 @@
 import axios from 'axios'
-import { CREATE_FOOD, DELETE_FOOD, FETCH_FOODS, GET_FOOD } from './actionTypes'
+import { CREATE_FOOD, DELETE_FOOD, FETCH_FOODS, GET_FOOD, CLEAR_ALL_FOOD, EDIT_FOOD } from './actionTypes'
 
 export const getFoods =() => dispatch => {
-    axios.get('http://localhost:4000/api/foods')
+    axios.get('/api/foods')
          .then((res) => {
              dispatch({
                  type: FETCH_FOODS,
@@ -40,6 +40,21 @@ export const getOneFood = (id) => dispatch => {
              })
          })
          .catch(err => console.log({err}))
-
 }
 
+export const clearAllFoods = () => {
+    return {
+        type: CLEAR_ALL_FOOD
+    }
+}
+
+export const editFood = (id,food) => dispatch => {
+    axios.put(`/api/foods/${id}`, food)
+         .then(res => {
+             dispatch({
+                 type: EDIT_FOOD,
+                 payload: res.data
+             })
+         })
+         .catch(err => console.log({err}))
+}
