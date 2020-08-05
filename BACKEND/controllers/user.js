@@ -62,18 +62,18 @@ exports.createUser = (req, res, next) => {
 exports.login = (req, res, next) => {
     const {email, password} = req.body
     if(!email || !password) {
-      return res.status(400).json({message: 'Please enter all fields!'})
+      return res.status(400).json({message: 'Email/Password incorrect(s)'})
     }
  
     User.findOne({ email })
       .then(user => {
         if (!user) {
-          return res.status(401).json({ error: "User does not exist  !" });
+          return res.status(401).json({ message: "User does not exist  !" });
         }
         bcrypt.compare(password, user.password)
           .then(valid => {
             if (!valid) {
-              return res.status(401).json({ error: 'password not exist !' });
+              return res.status(401).json({ message: 'password not exist !' });
             }
             jwt.sign(
               {id: user._id},

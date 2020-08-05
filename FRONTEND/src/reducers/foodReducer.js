@@ -15,34 +15,24 @@ const manageFoods = (state = initialState, action) => {
         case CREATE_FOOD:
             return {
                 ...state,
-                foods: [...state.foods, 
-                
+                foods: [...state.foods,           
                     action.payload]
             }    
         case DELETE_FOOD:
-            const indexFood = state.foods.findIndex(item => item._id === action.payload)  
-            if(indexFood !==-1){
-                return {
-                    ...state,
-                    foods: state.foods.filter((item, index) => index !== indexFood)
-                }
-            }  
-            break;
+            return {
+                ...state
+            }
+
+
         case GET_FOOD:
             return {
                 ...state,
                 food: action.payload
             }    
-        case  CLEAR_ALL_FOOD:
-            return {
-                ...state,
-                foods: []
-            }    
-
+  
         case EDIT_FOOD:
             return {
-                ...state,
-                food:action.payload
+                ...state
             }    
         default:
             return state;    

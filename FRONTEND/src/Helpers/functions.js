@@ -26,3 +26,8 @@ export const  getLengthOfCart =(cart, user) => {
     } ,0)
     return sum;  
 }
+
+export const   isEmpty = (obj) => { 
+    for (var x in obj) { return false; }
+    return true;
+   }

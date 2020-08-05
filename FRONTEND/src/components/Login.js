@@ -8,12 +8,11 @@ import { connect } from 'react-redux'
 import { login } from '../reducers/authActions'
 import { Alert } from 'reactstrap'
 import { clearErros } from '../reducers/errorActions'
+import swal from 'sweetalert'
 
  function Login(props) {
-    const [redirectTo, setRedirectTo] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [error, setError] = useState(false)
     const [msg, setMsg]= useState('')
     const prevError = useRef()
       useEffect(() => {
@@ -28,6 +27,7 @@ import { clearErros } from '../reducers/errorActions'
           }
           
       })
+
     const handleChangeEmail = (e) => {
         setEmail(e.target.value)
     }
@@ -42,11 +42,11 @@ import { clearErros } from '../reducers/errorActions'
           password
         }
         props.dispatch(login(user))
-        
+
       
     }
 
-    
+
     return (
       props.auth.redirectTo === false
       ?
@@ -78,13 +78,19 @@ import { clearErros } from '../reducers/errorActions'
                          placeholder="Your email..." 
                          className="input"
                          value={email}
-                         onChange={(value) => handleChangeEmail(value)}
+                         onChange={(value) => {
+                            props.dispatch(clearErros()) 
+                            handleChangeEmail(value)}
+                        
+                        }
                          />
                   <input type="password"  
                          placeholder="Your password..." 
                          className="input"
                          value={password}
-                         onChange={(value) => handleChangePassword(value)}
+                         onChange={(value) => {
+                            props.dispatch(clearErros())  
+                            handleChangePassword(value)}}
                          />
                </div>
                <div className="buttons-group">

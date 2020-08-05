@@ -92,12 +92,12 @@ import { getUser } from '../reducers/userActions'
             <div className="foods_container">
               {
               selectedValue !== 'Select a city' ?
-              filteredFoodsByNameAndCity.length>0 && filteredFoodsByNameAndCity.slice(filteredFoodsByNameAndCity.length-6).map((food, index) => <Food
+              filteredFoodsByNameAndCity.length>0 && filteredFoodsByNameAndCity.slice(0, 6).map((food, index) => <Food
                 key={index}
                 food={food}
               />).reverse()
               :
-              filteredFoodsByName.length>0 && filteredFoodsByName.slice(filteredFoodsByName.length-6).map((food, index) => <Food
+              filteredFoodsByName.length>0 && filteredFoodsByName.slice(0,6).map((food, index) => <Food
                 key={index}
                 food={food}
               />).reverse()

@@ -5,7 +5,7 @@ import { AddToCart } from '../reducers/actions';
 import Nav from './Nav';
 
 import NavAuth from './NavAuth';
-import { getOneFood } from '../reducers/foodActions';
+import { getOneFood, getFoods } from '../reducers/foodActions';
 import swal from 'sweetalert';
 
 
@@ -16,13 +16,20 @@ function SingleFood(props) {
     const [price, setPrice] = useState(0)
 
     useEffect(() => {
-        props.dispatch(getOneFood(props.match.params.id))    
+        props.dispatch(getOneFood(props.match.params.id)) 
+        props.dispatch(getFoods())   
         setPrice(price*getCount())    
     },[])
+console.log(props.food)
 
-
-   
-
+    const getFood = (id) => {
+        const food = props.foods.find(item => item._id === id)
+        return food;
+    } 
+    
+    const food = getFood(props.match.params.id) 
+    const {name, city, price: priceFood, ingredients, url} = props.food
+   console.log(food)
     const getCount =() => {
         if(counter < 0) {
             return 0
@@ -63,17 +70,13 @@ function SingleFood(props) {
           <NavAuth />
         </Nav>    
         <div className="card_container">
-            <img src={props.food.url} alt="food img" className="single_food_img"/>
+            <img src={url} alt="food img" className="single_food_img"/>
             <div className="card_body">
-                  <h3>{props.food.name}</h3>    
-                  <p><b>price:</b> {parseFloat(getPrice(props.food.price)).toFixed(3)}DT</p>
-                  <p><b>City:</b> {props.food.city}</p>
-                     <p><b>Ingredients:</b>{props.food.ingredients.join(',')}</p>
-          
-                  {
-                      props.auth===false ?
-                      null
-                      :
+                  <h3>{name}</h3>    
+                  <p><b>price:</b> {parseFloat(getPrice(priceFood)).toFixed(3)}DT</p>
+                  <p><b>City:</b> {city}</p>
+                     <p><b>Ingredients:</b>{ingredients.join(',')}</p>
+   
                       
                       <div className="add-minus-group">
                       <button className="add-minus"
@@ -84,8 +87,8 @@ function SingleFood(props) {
                       onClick={() => setCounter(counter-1)}
                        >-</button>  
                       </div>     
-                  }
-                  { props.auth === true &&
+
+    
                   <button className="order_btn"
                   onClick={() =>{
                     const objUpdated = getObj();
@@ -107,7 +110,7 @@ function SingleFood(props) {
                 }  
                   >Add to cart</i>
                   </button>
-             }
+             
             </div>
         </div>
         </>

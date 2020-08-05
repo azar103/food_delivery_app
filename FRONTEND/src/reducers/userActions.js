@@ -33,7 +33,7 @@ export const deleteUserAndCommands = user => dispatch => {
         payload: user
     })
 
-    axios.delete(`http://localhost:4000/api/users/${user._id}`)
+    axios.delete(`/api/users/${user._id}`)
          .then((res) => {
              dispatch({
                  type: DELETE_USER,

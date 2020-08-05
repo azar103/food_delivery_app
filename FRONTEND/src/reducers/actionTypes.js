@@ -22,4 +22,5 @@ export const DELETE_FOOD = "DELETE_FOOD"
 export const EDIT_FOOD ="EDIT_FOOD"
 export const GET_FOOD ="GET_FOOD"
 export const CLEAR_ALL_FOOD ="CLEAR_ALL_FOOD"
-
+export const CREATE_FOOD_FAIL = "CREATE_FOOD_FAIL"
+export const UPDATE_FOOD_FAIL="UPDATE_FOOD_FAIL"

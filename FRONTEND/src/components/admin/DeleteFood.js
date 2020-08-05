@@ -9,17 +9,18 @@ import swal from 'sweetalert'
    useEffect(() => {
        props.dispatch(getOneFood(props.match.params.id))
    },[])  
-    const  onDelete =(id) => {
-        props.dispatch(deleteFood(id))
+    const  onDelete =(food) => {
+        props.dispatch(deleteFood(food))
         swal('Food Deleted', "", "success")
     } 
+    console.log(props.food)
     return (
         <DashboardModal>
             <div className="delete_box_container">
-                 <h1>Are you sure to delete {props.food.name} ?</h1> 
+                 <h1>Are you sure to delete this food ?</h1> 
                  <button className="delete_btn"
                  onClick={() =>{
-                     onDelete(props.match.params.id)
+                     onDelete(props.food)
                  }}
                  >
                      delete

@@ -1,26 +1,44 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import DashboardModal from './DashboardModal'
 import { connect } from 'react-redux'
 import { getOneFood, editFood } from '../../reducers/foodActions'
 import swal from 'sweetalert'
-import { Redirect } from 'react-router-dom'
+import { isEmpty } from '../../Helpers/functions'
+
 
  function EditFood(props) {
-
+    const prevError = useRef()
     useEffect(() => {
-        props.dispatch(getOneFood(props.match.params.id))
-    },[])
-    
-    
-    const [name, setName] = useState(props.food.name)
-    const [city, setCity] = useState(props.food.city)
-    const [price, setPrice] = useState(props.food.price)
-    const [url, setUrl] = useState(props.food.url)
-    const [ingredients, setIngredients] = useState(props.food.ingredients) 
-   
+ 
+        const {error} = props
+        prevError.current = error
+        if(error !== prevError) {
+             if(error.id === 'CREATE_FOOD_FAIL'){
+                 setMsg(error.msg.message)
+             }else {
+                 setMsg(null)
+             }
+         }
+        
+       })
+   const getFoodById =(id) => {
+      const food =  props.foods.find(item => item._id === id)
+      return food
+   }
+
+   const foodObj = getFoodById(props.match.params.id)
+ 
+   const [name, setName] = useState(foodObj.name)
+   const [city, setCity] = useState(foodObj.city)
+   const [price, setPrice] = useState(foodObj.price)
+   const [url, setUrl] = useState(foodObj.url)
+   const [ingredients, setIngredients] = useState(props.food.ingredients) 
+   const [msg, setMsg] = useState('')
 
    const onHandleChangeName =(e) => {
+
     setName(e.target.value)
+
   }
 
 const onHandleChangeCity = (e) => {
@@ -39,11 +57,16 @@ const onHandleChangeIngredients =(e) => {
 const updateFood = (e,food) => {
     e.preventDefault()
     props.dispatch(editFood(props.match.params.id, food))
-    swal('Food Updated', "", 'success')
+    if(isEmpty(msg) === true){
+        swal('Food Updated', "", "success")
+    }else {
+        swal(msg, '', 'error')
+    }
   }
 
     return (
         <DashboardModal>
+          
            <form className="form-group"
                onSubmit={(e) => updateFood(e, {name, city, price, url, ingredients})}
             >
@@ -70,7 +93,7 @@ const updateFood = (e,food) => {
                          placeholder="price..." 
                          className="input"
                          name="price"
-                         value={parseFloat(price).toFixed(3)}
+                         value={price}
                          onChange={e => onHandleChangePrice(e)}
                          />
                    <label><b>url of image</b></label>               
@@ -101,7 +124,8 @@ const updateFood = (e,food) => {
 const mapStateToProps = (state) => {
     return {
         foods: state.foodReducer.foods,
-        food: state.foodReducer.food
+        food: state.foodReducer.food,
+        error: state.errorReducer
     }
 }
 export default connect(mapStateToProps)(EditFood)
