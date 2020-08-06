@@ -17,8 +17,10 @@ import DeletedUser from './components/admin/DeletedUser';
 import AddFood from './components/admin/AddFood';
 import EditFood from './components/admin/EditFood';
 import DeleteFood from './components/admin/DeleteFood';
+import ProtectedRoute from './components/ProtectedRoute';
+import { connect } from 'react-redux';
 
-function App() {
+function App(props) {
 
   return (
       <Switch>
@@ -27,19 +29,24 @@ function App() {
           <Route  exact path="/foods"  component={Home} />
           <Route  path="/about"   component={AboutUs} />
           <Route  path="/orders"   component={Orders} />
-          <Route  path="/login"   component={Login} /> 
+          <Route exact path="/login"   component={Login} /> 
           <Route  path="/signup"   component={SignUp} /> 
-          <Route path="/admin/newFood" component={AddFood} />
-
-          <Route path="/admin/foods/:id" component={EditFood}/>
-          <Route path="/admin/foods" component={FoodsDashboard} />
-          <Route path="/admin/users/:id" component={DeletedUser} />
-          <Route  path="/admin/users" component={UsersDashboard} />
-          <Route path="/admin/orders" component={OrdersDashboard}/>
-          <Route path="/admin/user/:id" component={UserSheet} />
-          <Route path="/admin/delete/:id" component={DeleteFood} />
-          <Route  path="/admin" component={HomeDashboard}/>   
+          <ProtectedRoute path="/admin/newFood" isAuth={props.auth} component={AddFood} />
+          <ProtectedRoute path="/admin/foods/:id" isAuth={props.auth} component={EditFood}/>
+          <ProtectedRoute path="/admin/foods" isAuth={props.auth} component={FoodsDashboard} />
+          <ProtectedRoute path="/admin/users/:id" isAuth={props.auth} component={DeletedUser} />
+          <ProtectedRoute  path="/admin/users" isAuth={props.auth} component={UsersDashboard} />
+          <ProtectedRoute path="/admin/orders" isAuth={props.auth} component={OrdersDashboard}/>
+          <ProtectedRoute path="/admin/user/:id" isAuth={props.auth} component={UserSheet} />
+          <ProtectedRoute path="/admin/delete/:id" isAuth={props.auth} component={DeleteFood} />
+          <ProtectedRoute  path="/admin" isAuth={props.auth} component={HomeDashboard}/>   
       </Switch>
   );
 }
-export default App
+
+const mapStateToProps =(state) => {
+  return {
+    auth: state.authReducer.redirectToAdmin
+  }
+}
+export default connect(mapStateToProps)(App)

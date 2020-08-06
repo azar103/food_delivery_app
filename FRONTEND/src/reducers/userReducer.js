@@ -1,8 +1,19 @@
-import { GET_USER, FETCH_USERS, DELETE_USER, CLEAR_ALL_USERS } from "./actionTypes"
-
+import { GET_USER, FETCH_USERS, DELETE_USER, CLEAR_ALL_USERS} from "./actionTypes"
+import {Role} from '../Helpers/roles'
 const initialState = {
-    users: [],
-    user: null
+    users: [
+       {
+           _id: "1",
+           lastName: "Zarrouk",
+           firsName:"Mouna",
+           email:"admin@gmail.com",
+           password: "admin",
+           tel: 11223344,
+           role: Role.Admin
+       }
+    ],
+    user: null,
+
 }
 
 const userReducer = (state=initialState, action) => {
@@ -21,13 +32,15 @@ const userReducer = (state=initialState, action) => {
            return {
                ...state,
                cart: action.payload
-           }    
+           }        
       case CLEAR_ALL_USERS:
           return {
               ...state, 
               users: []
-          }     
+          }   
+  
        default:        
+
           return state;
    }
 }

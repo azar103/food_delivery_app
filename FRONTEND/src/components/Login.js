@@ -2,13 +2,11 @@ import React, { useState, useEffect, useRef } from 'react'
 import './Login.scss'
 import Form from './Form'
 import { Link, Redirect } from 'react-router-dom'
-import axios from 'axios'
 import Nav from './Nav'
 import { connect } from 'react-redux'
-import { login } from '../reducers/authActions'
+import { login, loginAdmin } from '../reducers/authActions'
 import { Alert } from 'reactstrap'
 import { clearErros } from '../reducers/errorActions'
-import swal from 'sweetalert'
 
  function Login(props) {
     const [email, setEmail] = useState('')
@@ -37,17 +35,24 @@ import swal from 'sweetalert'
 
     const onSubmit = (e) => {
         e.preventDefault()
-        const user = {
-          email,
-          password
+        if(email !== 'admin@gmail.com' && password!=="admin"){
+            const user = {
+                email,
+                password
+              }
+              props.dispatch(login(user))
+        }else {
+            props.dispatch(loginAdmin())
         }
-        props.dispatch(login(user))
-
+  
       
     }
 
-
+ 
     return (
+      props.auth.redirectToAdmin === true?
+      <Redirect to="/admin" />
+      :  
       props.auth.redirectTo === false
       ?
          <>

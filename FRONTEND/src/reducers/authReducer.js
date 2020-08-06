@@ -1,15 +1,26 @@
-const { LOGIN_SUCCESS, REGISTER_SUCCESS, AUTH_ERROR, LOGIN_FAIL, REGISTER_FAIL, LOGOUT_SUCCESS, CREATE_USER } = require("./actionTypes")
+const { LOGIN_SUCCESS, REGISTER_SUCCESS, AUTH_ERROR, LOGIN_FAIL, REGISTER_FAIL, LOGOUT_SUCCESS, CREATE_USER, LOGIN_ADMIN_SUCCESS, LOOUT_ADMIN_SUCCESS, LOGOUT_ADMIN_SUCCESS } = require("./actionTypes")
 
 const initialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: false,
     user: null,
-    redirectTo: false
+    redirectTo: false,
+    redirectToAdmin: false
 }
 
 
 const authReducer = (state=initialState, action) => {
     switch(action.type)  {
+        case LOGIN_ADMIN_SUCCESS:
+        return {
+            redirectTo: false,
+            redirectToAdmin: true
+        }    
+        case LOGOUT_ADMIN_SUCCESS:
+        return {
+            redirectTo: false,
+            redirectToAdmin: false
+        }
         case REGISTER_SUCCESS: 
         localStorage.setItem('token', action.payload.token)
         return {

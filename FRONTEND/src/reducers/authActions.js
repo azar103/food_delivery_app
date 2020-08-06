@@ -1,4 +1,4 @@
-import { USER_LOADING, USER_LOADED, AUTH_ERROR, REGISTER_SUCCESS, REGISTER_FAIL, LOGOUT_SUCCESS, LOGIN_SUCCESS, LOGIN_FAIL } from "./actionTypes"
+import { REGISTER_SUCCESS, REGISTER_FAIL, LOGOUT_SUCCESS, LOGIN_SUCCESS, LOGIN_FAIL, LOGIN_ADMIN_SUCCESS, LOGOUT_ADMIN_SUCCESS } from "./actionTypes"
 
 import axios from 'axios'
 import { returnErrors } from "./errorActions"
@@ -56,3 +56,18 @@ export const logout = () => {
         type: LOGOUT_SUCCESS
     }
 }
+
+
+export const loginAdmin =() => {
+    return {
+        type: LOGIN_ADMIN_SUCCESS
+    }
+}
+
+
+export const logoutAdmin =() => {
+    return {
+        type: LOGOUT_ADMIN_SUCCESS
+    }
+}
+

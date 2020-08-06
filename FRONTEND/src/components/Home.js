@@ -13,15 +13,11 @@ import { getUser } from '../reducers/userActions'
 
     const [inputValue, setInputValue] = useState('');
     const [selectedValue, setSelectedValue] = useState('');
-    console.log(props.cart)
    useEffect(() => {
             props.dispatch(getFoods())
             if(props.user !==null){
                 props.dispatch(getUser(props.user.id))
-            }       
-
-
-      
+            }      
    }, [])
    
     const handleChange = (e) => {
@@ -41,7 +37,7 @@ import { getUser } from '../reducers/userActions'
     ) 
 
 
-
+    console.log(props.auth.redirectTo)
     return (
         <>
         <Nav>
@@ -113,7 +109,7 @@ const mapStateToProps =(state) => {
     return {
         foods: state.foodReducer.foods,
         cart: state.manageCart.cart,
-        auth: state.authReducer.isAuthenticated,
+        auth: state.authReducer,
         user: state.authReducer.user,
         profile: state.userReducer.user
     }
