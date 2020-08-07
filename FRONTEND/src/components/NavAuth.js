@@ -32,6 +32,9 @@ console.log(props.user[0])
                  <li>
                     <a href="#footer" >Contact</a>
                  </li>   
+                 <li>
+                     add item
+                 </li>
 
                  {
                     getLength() > 0

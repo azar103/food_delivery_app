@@ -8,7 +8,7 @@
     "server":"nodemon server.js",
     "client":"npm start --prefix ../FRONTEND",
     "dev":"concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm install --prefix ../FRONTEND && npm run build prefix ../FRONTEND"
+    "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm install --prefix ../FRONTEND && npm run build --prefix ../FRONTEND"
   },
   "author": "",
   "license": "ISC",
