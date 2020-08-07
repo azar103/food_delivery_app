@@ -7,6 +7,7 @@ import Nav from './Nav';
 import NavAuth from './NavAuth';
 import { getOneFood, getFoods } from '../reducers/foodActions';
 import swal from 'sweetalert';
+import Footer from './Footer';
 
 
 function SingleFood(props) {
@@ -113,6 +114,7 @@ console.log(props.food)
              
             </div>
         </div>
+        <Footer />
         </>
     )
 }

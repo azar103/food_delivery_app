@@ -8,8 +8,7 @@ const initialState = {
            firsName:"Mouna",
            email:"admin@gmail.com",
            password: "admin",
-           tel: 11223344,
-           role: Role.Admin
+           tel: 11223344
        }
     ],
     user: null,

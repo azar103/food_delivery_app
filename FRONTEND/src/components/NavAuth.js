@@ -30,10 +30,7 @@ console.log(props.user[0])
                 } 
         
                  <li>
-                    <Link to="/contact">Contact</Link>
-                 </li>   
-                 <li>
-                    <Link to="/about">About Us</Link>
+                    <a href="#footer" >Contact</a>
                  </li>   
 
                  {

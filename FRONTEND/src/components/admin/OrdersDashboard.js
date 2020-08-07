@@ -18,7 +18,6 @@ import './OrderDashboard.scss'
         order.city.toLowerCase().indexOf(selectedValue.toLowerCase()) !== -1
     )
 
- 
    const cartfilteredByNameSorted = filteredOrdersByFirstName.sort((a, b) => b.date-a.date)
    const cartfilteredByNameAndCitySorted = filteredFoodsByNameAndCity.sort((a, b) => b.date-a.date)
    const handleChangeName = e => {

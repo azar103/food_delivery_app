@@ -7,6 +7,7 @@ import Nav from './Nav'
 import { getLengthOfCart, cartFilteredById, totalPrice } from '../Helpers/functions'
 import NavAuth from './NavAuth'
 import { clearCart } from '../reducers/actions'
+import Footer from './Footer'
 
 
 
@@ -58,6 +59,7 @@ import { clearCart } from '../reducers/actions'
           <button
               onClick={() => props.dispatch(clearCart())}
               >CLEAR ALL</button>
+        <Footer />      
         </>
     )
 }

@@ -8,6 +8,7 @@ import { Link} from 'react-router-dom'
 import Nav from './Nav'
 import NavAuth from './NavAuth'
 import { getUser } from '../reducers/userActions'
+import Footer from './Footer'
 
  function Home(props) {
 
@@ -37,7 +38,6 @@ import { getUser } from '../reducers/userActions'
     ) 
 
 
-    console.log(props.auth.redirectTo)
     return (
         <>
         <Nav>
@@ -101,6 +101,7 @@ import { getUser } from '../reducers/userActions'
                 
             </div>
         </section>
+        <Footer />
         </>
     )
 }
@@ -109,7 +110,7 @@ const mapStateToProps =(state) => {
     return {
         foods: state.foodReducer.foods,
         cart: state.manageCart.cart,
-        auth: state.authReducer,
+        auth: state.authReducer.isAuthenticated,
         user: state.authReducer.user,
         profile: state.userReducer.user
     }

@@ -53,10 +53,9 @@ export const getOneFood = (id) => dispatch => {
 
 export const editFood = (id,food) => dispatch => {
     axios.put(`/api/foods/${id}`, food)
-         .then(res => {
+         .then(() => {
              dispatch({
-                 type: EDIT_FOOD,
-                 payload: res.data
+                 type: EDIT_FOOD
              })
          })
          .catch((err) => {

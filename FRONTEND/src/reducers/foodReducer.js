@@ -22,8 +22,6 @@ const manageFoods = (state = initialState, action) => {
             return {
                 ...state
             }
-
-
         case GET_FOOD:
             return {
                 ...state,
