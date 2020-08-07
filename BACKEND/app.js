@@ -27,9 +27,9 @@ app.use(bodyParser.json());
 app.use('/api/users', userRoutes);
 app.use('/api/foods', foodRoutes);
 if(process.env.NODE_ENV === 'production') {
-    app.use(express.static('../FRONTEND/build'));
+    app.use(express.static(path.join('../FRONTEND/build')))
     app.get('*', (req, res) => {
-        res.sendFile(__dirname, '../FRONTEND', 'build', 'index.html')
+        res.sendFile(path.resolve(__dirname, '../FRONTEND', 'build', 'index.html'))
     })
 }
 module.exports = app;
