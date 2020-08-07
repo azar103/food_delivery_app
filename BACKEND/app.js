@@ -6,6 +6,7 @@ const foodRoutes = require('./routes/food');
 const bodyParser = require('body-parser');
 const config = require('config')
 const db = config.get('mongoURI')
+const path = require('path')
 mongoose.connect(db,
 
 {
@@ -25,4 +26,10 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 app.use('/api/users', userRoutes);
 app.use('/api/foods', foodRoutes);
+if(process.env.NODE_ENV === 'production') {
+    app.use(express.static('../FRONTEND/build'));
+    app.get('*', (req, res) => {
+        res.sendFile(__dirname, '../FRONTEND', 'build', 'index.html')
+    })
+}
 module.exports = app;
