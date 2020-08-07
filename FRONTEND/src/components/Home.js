@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import { getFoods } from '../reducers/foodActions'
 import Food from './Food'
-import { Link} from 'react-router-dom'
+import { Link, Redirect} from 'react-router-dom'
 import Nav from './Nav'
 import NavAuth from './NavAuth'
 import { getUser } from '../reducers/userActions'
@@ -40,7 +40,13 @@ import Footer from './Footer'
 
     return (
         <>
-        <Nav>
+        {
+            props.redirectToAdmin === true 
+            ?
+            <Redirect to="/admin" />
+            :
+          <>  
+            <Nav>
              <NavAuth/>  
         </Nav>
         <section className="home_header">
@@ -103,6 +109,9 @@ import Footer from './Footer'
         </section>
         <Footer />
         </>
+        }
+        
+        </>
     )
 }
 
@@ -111,6 +120,7 @@ const mapStateToProps =(state) => {
         foods: state.foodReducer.foods,
         cart: state.manageCart.cart,
         auth: state.authReducer.isAuthenticated,
+        redirectToAdmin:state.authReducer.redirectToAdmin,
         user: state.authReducer.user,
         profile: state.userReducer.user
     }

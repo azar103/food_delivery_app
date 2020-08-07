@@ -8,9 +8,9 @@
     "server":"nodemon server.js",
     "client":"npm start --prefix ../FRONTEND",
     "dev":"concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm install --prefix ../FRONTEND && npm run build --prefix ../FRONTEND"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
-  "author": "",
+  "author": "Anis Zarrouk",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",

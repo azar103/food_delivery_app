@@ -17,6 +17,7 @@ import AddFood from './components/admin/AddFood';
 import EditFood from './components/admin/EditFood';
 import DeleteFood from './components/admin/DeleteFood';
 import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedRouteAdmin from './components/ProtectedRoute';
 import { connect } from 'react-redux';
 
 function App(props) {
