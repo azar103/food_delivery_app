@@ -1,0 +1,24 @@
+.btn {
+    padding: 5px;
+    border: none;
+    outline: none;
+    color: white;
+    width: 100px;   
+    cursor: pointer;
+    border-radius: 10px;
+
+}
+
+.btn_edit{
+    @extend .btn; 
+    background-color: #138496;
+ }
+ 
+.btn_delete {
+    @extend .btn; 
+    background-color: #C82333;
+ }
+.fa-trash {
+    cursor: pointer;
+}
+

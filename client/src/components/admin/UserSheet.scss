@@ -1,0 +1,19 @@
+.sheet{
+    box-shadow: var(--box-shadow);
+    height: 250px;
+    width: 500px;
+    padding: 4px;
+    display: flex;
+    line-height: 60px;
+    flex-direction: column;
+     .group {
+         display: flex;
+     }
+    .label-sheet{
+        font-size: 20px;
+    }
+    span {
+        font-size: 20px;
+    }
+
+}
