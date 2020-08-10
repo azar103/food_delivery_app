@@ -33,7 +33,9 @@ import Footer from './Footer'
         getLength()>0
         ?    
         <>
-      
+        <Nav >
+          <NavAuth />
+        </Nav> 
         <div className="orders_container">
              <h2>{getLength()} command(s)</h2>
              {cartFiltered.map((order, index) => <Order 
@@ -54,6 +56,7 @@ import Footer from './Footer'
               */
          }   
         </div>
+        <Footer />  
         </>
         :
         <>
