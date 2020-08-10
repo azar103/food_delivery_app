@@ -16,8 +16,7 @@ import Logout from './Logout'
             return getLengthOfCart(props.items, props.user)
         }
     }    
-    
-console.log(props.user)
+
     return (
         <>
              <li id="left">
@@ -25,7 +24,7 @@ console.log(props.user)
               </li>    
               <div id="right"> 
                 {
-                    props.auth && props.user&&
+                    props.auth && props.user&& props.profile[0]&&
                     <li>{`Welcome, ${props.profile[0].firstName}`}</li> 
                 } 
         
