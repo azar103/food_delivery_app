@@ -18,12 +18,12 @@ import { findUserById } from '../../Helpers/functions'
     }
  
 
-    const indexSearched = findCartByUserId(userId)
+  
     const userObj = findUserById(props.users, userId)
     console.log(userObj)
     return (
      <>
-    
+        {userObj  &&
             <tr>
             <td>{food.name}</td>
             <td>{userObj.lastName}</td>
@@ -33,7 +33,7 @@ import { findUserById } from '../../Helpers/functions'
     
            
         </tr>
-
+ }
         
         </>
     )
