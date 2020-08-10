@@ -6,7 +6,7 @@ import swal from 'sweetalert'
 import Nav from './Nav'
 import { getLengthOfCart, cartFilteredById, totalPrice } from '../Helpers/functions'
 import NavAuth from './NavAuth'
-import { RemoveFromCart } from '../reducers/cartActions'
+import { RemoveFromCart, clearCart } from '../reducers/cartActions'
 import Footer from './Footer'
 
 
@@ -27,7 +27,7 @@ import Footer from './Footer'
  const onDelete = id => {
      props.dispatch(RemoveFromCart(id))
  }
-
+console.log(props.items);
     return(
         
         getLength()>0
@@ -50,12 +50,12 @@ import Footer from './Footer'
             <p><b>Total Price:</b> {parseFloat(totalPrice(props.items.filter(item => item.userId === props.user.id))).toFixed(3)} DT</p>
          
          {
-             /**
-              * <button
+             
+               <button
               onClick={() => props.dispatch(clearCart())}
               >CLEAR ALL</button>
             
-              */
+              
          }   
         </div>
         <Footer />  
