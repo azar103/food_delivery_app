@@ -4,7 +4,7 @@ import TableModal from './TableModal'
 import { connect } from 'react-redux'
 import User from './User'
 
-import { fetchUsers, clearAllUsers, deleteUserAndCommands } from '../../reducers/userActions'
+import { fetchUsers, clearAllUsers, deleteUserAndCommands, getUser, getUsers } from '../../reducers/userActions'
 
 
  function UsersDashboard(props) {
@@ -12,10 +12,9 @@ import { fetchUsers, clearAllUsers, deleteUserAndCommands } from '../../reducers
  
 
 
-  console.log(props.users.length)   
-
-
-
+   useEffect(() => {
+       props.dispatch(fetchUsers())
+   })
 
     const deleteUser = (item) => {
         props.dispatch(deleteUserAndCommands(item))
@@ -30,7 +29,7 @@ import { fetchUsers, clearAllUsers, deleteUserAndCommands } from '../../reducers
               <th>address</th>
               <th>telephone</th>
               <th>#</th>
-          </tr>    
+            </tr>    
           :
           <>
           <tr>

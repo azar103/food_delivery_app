@@ -20,6 +20,7 @@ import { findUserById } from '../../Helpers/functions'
 
     const indexSearched = findCartByUserId(userId)
     const userObj = findUserById(props.users, userId)
+    console.log(userObj)
     return (
      <>
     

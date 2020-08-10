@@ -1,16 +1,7 @@
 import { GET_USER, FETCH_USERS, CLEAR_ALL_USERS} from "./actionTypes"
 
 const initialState = {
-    users: [
-       {
-           _id: "1",
-           lastName: "Zarrouk",
-           firsName:"Mouna",
-           email:"admin@gmail.com",
-           password: "admin",
-           tel: 11223344
-       }
-    ],
+    users: [],
     user: null,
 
 }
