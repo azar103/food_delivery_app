@@ -7,12 +7,7 @@ exports.fetchItems = (req, res, next) => {
 }
 
 exports.addItemToCart = (req, res, next) => {
-    const {foodId} = req.body.food
-    Cart.findOne({foodId})
-        .then(item => {
-            if(item){
-                return res.status(500).json({message: 'Item exist'})
-            }
+  
             delete req.body._id
             const newItem = new Cart({
                 ...req.body
@@ -20,10 +15,9 @@ exports.addItemToCart = (req, res, next) => {
             newItem.save()
             .then(item => res.status(200).json(item))
             .catch(err => res.status(500).json({err}))
-        })
-        .catch(err => res.status(500).json({err}))
+        }
 
-}
+
 
 exports.removeItemFromCart = (req, res, next) => {
     Cart.findById({_id: req.params.id})

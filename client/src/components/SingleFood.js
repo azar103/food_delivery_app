@@ -36,7 +36,12 @@ function SingleFood(props) {
        return price * getCount()
    }
 const foodObj = findFoodById(props.foods, props.match.params.id)
-console.log(foodObj)
+const findFoodByIndex =(items, food) => {
+   const index = items.findIndex(item => item.food.name === food.name && item.userId === props.profile[0]._id)
+   return index;
+}
+const searchedIndex = findFoodByIndex(props.items, foodObj)
+console.log(searchedIndex)
     return (
         <>
         <Nav>
@@ -64,7 +69,7 @@ console.log(foodObj)
     
                   <button className="order_btn"
                   onClick={() =>{
-
+                  if(searchedIndex == -1){
                     const newObj = {
                         food: {
                             foodId: props.match.params.id,
@@ -77,6 +82,8 @@ console.log(foodObj)
                     }
                     console.log(newObj)
                     props.dispatch(AddToCart(newObj))
+                  }
+                    
                    
                
                     
