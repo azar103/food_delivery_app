@@ -31,7 +31,7 @@ import { fetchItems } from '../../reducers/cartActions'
    const handleChangeCity = e => {
     setSelectedValue(e.target.value)
 }
-
+console.log(props.items)
 
      return (
 

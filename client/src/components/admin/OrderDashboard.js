@@ -22,11 +22,7 @@ import { findUserById } from '../../Helpers/functions'
     const userObj = findUserById(props.users, userId)
     return (
      <>
-       {
-            indexSearched === -1
-            ?
-            null
-            :
+    
             <tr>
             <td>{food.name}</td>
             <td>{userObj.lastName}</td>
@@ -36,7 +32,7 @@ import { findUserById } from '../../Helpers/functions'
     
            
         </tr>
-       }
+
         
         </>
     )
