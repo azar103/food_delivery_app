@@ -24,7 +24,7 @@ import Logout from './Logout'
               </li>    
               <div id="right"> 
                 {
-                    props.auth && props.user&& props.profile[0]!==null&&
+                    props.auth && props.user&& props.profile!==null&&
                     <li>{`Welcome, ${props.profile[0].firstName}`}</li> 
                 } 
         
