@@ -20,7 +20,7 @@ import { findUserById } from '../../Helpers/functions'
 
   
     const userObj = findUserById(props.users, userId)
-    console.log(userObj)
+
     return (
      <>
         {userObj  &&

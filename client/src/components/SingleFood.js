@@ -75,8 +75,7 @@ console.log(searchedIndex)
                             foodId: props.match.params.id,
                             name: foodObj.name,
                             price: getPrice(foodObj.price),
-                            city: foodObj.city,
-                            date: foodObj.date
+                            city: foodObj.city
                         },
                         userId: props.user.id
                     }
