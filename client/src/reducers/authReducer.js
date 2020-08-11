@@ -13,11 +13,13 @@ const authReducer = (state=initialState, action) => {
     switch(action.type)  {
         case LOGIN_ADMIN_SUCCESS:
         return {
+            ...state, 
             redirectTo: false,
             redirectToAdmin: true
         }    
         case LOGOUT_ADMIN_SUCCESS:
         return {
+            ...state,
             redirectTo: false,
             redirectToAdmin: false
         }

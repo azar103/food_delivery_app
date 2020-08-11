@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_USER, FETCH_USERS, DELETE_USER, DELETE_USER_AND_COMMANDS, CLEAR_ALL_USERS, LOGOUT_SUCCESS } from './actionTypes'
+import { CLEAR_USER,GET_USER, FETCH_USERS, DELETE_USER, DELETE_USER_AND_COMMANDS, CLEAR_ALL_USERS, LOGOUT_SUCCESS } from './actionTypes'
 
 export const getUser = (id) => dispatch => {
     axios.get(`/api/users/user/${id}`)
@@ -45,5 +45,12 @@ export const deleteUserAndCommands = id => dispatch => {
 export const clearAllUsers = () => {
     return {
         type: CLEAR_ALL_USERS
+    }
+}
+
+
+export const clearUser = () => {
+    return {
+        type: CLEAR_USER
     }
 }

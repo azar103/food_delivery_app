@@ -7,9 +7,9 @@ const CartSchema = mongoose.Schema({
         name: {type: String, required: true},
         price: {type: Number, required:true},
         city: {type: String, required: true},
-        date: {type: Date, required: true}
+        date: {type: Date, required: true, default: Date.now}
     },
-    userId: {type: String, required: true}
+    userId: {type: String, required: true},
 })
 
 module.exports = mongoose.model('Cart', CartSchema)

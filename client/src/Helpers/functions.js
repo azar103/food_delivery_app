@@ -1,7 +1,9 @@
 export const  getLengthOfCart =(cart, user) => {
-
-    const newArr = cart.filter(item => item!=null &&  item.userId === user.id)
-    return newArr.length
+ 
+        const newArr = cart.filter(item => item!=null  &&  item.userId === user.id)
+        return newArr.length
+    
+  
     
 }
 

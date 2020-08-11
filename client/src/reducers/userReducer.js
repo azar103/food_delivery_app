@@ -1,4 +1,4 @@
-import { GET_USER, FETCH_USERS, CLEAR_ALL_USERS} from "./actionTypes"
+import { GET_USER, FETCH_USERS, CLEAR_ALL_USERS, CLEAR_USER} from "./actionTypes"
 
 const initialState = {
     users: [],
@@ -23,7 +23,9 @@ const userReducer = (state=initialState, action) => {
           return {
               ...state, 
               users: []
-          }   
+          }
+             
+
   
        default:        
 

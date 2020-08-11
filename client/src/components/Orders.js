@@ -49,14 +49,7 @@ console.log(props.items);
           */}
             <p><b>Total Price:</b> {parseFloat(totalPrice(props.items.filter(item => item.userId === props.user.id))).toFixed(3)} DT</p>
          
-         {
-             
-               <button
-              onClick={() => props.dispatch(clearCart())}
-              >CLEAR ALL</button>
-            
-              
-         }   
+  
         </div>
         <Footer />  
         </>
