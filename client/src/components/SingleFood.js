@@ -76,11 +76,11 @@ console.log(searchedIndex)
                             name: foodObj.name,
                             price: getPrice(foodObj.price),
                             city: foodObj.city,
-                            date: foodObj.date,
+                            date: foodObj.date
                         },
                         userId: props.user.id
                     }
-                    console.log(newObj)
+        
                     props.dispatch(AddToCart(newObj))
                   }
                     
