@@ -74,7 +74,7 @@ import { clearErros } from '../reducers/errorActions'
              null
          }
            <Form>
-               <img src="../../login.png" alt="login" className="img_login"/>
+               <img src="../../login.jpg" alt="login" className="img_login"/>
                <div className="login_container_right">
 
                <h1>Welcome !</h1>  
