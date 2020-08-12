@@ -70,6 +70,7 @@ console.log(searchedIndex)
                   <button className="order_btn"
                   onClick={() =>{
                   if(searchedIndex == -1){
+                    //constuire un objet de l'item  
                     const newObj = {
                         food: {
                             foodId: props.match.params.id,
@@ -78,6 +79,7 @@ console.log(searchedIndex)
                             city: foodObj.city
                         },
                         userId: props.user.id
+                        
                     }
         
                     props.dispatch(AddToCart(newObj))
