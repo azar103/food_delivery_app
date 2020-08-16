@@ -19,7 +19,7 @@ function NavAuth(props) {
         <Link to="/">FoodDelivery</Link>
       </li>
       <div id="right">
-        {props.auth && props.user && props.profile !== null && (
+        {props.auth && props.user && (
           <li>{`Welcome, ${props.profile[0].firstName}`}</li>
         )}
 
