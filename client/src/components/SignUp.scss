@@ -1,44 +1,42 @@
+.img_login {
+  width: 100%;
+  height: 100%;
+}
 
-    .img_login {
-        width: 100%;
-        height: 100%;
+.form_group {
+  background-color: #005bea;
+  color: white;
+  font-weight: bold;
+  width: 100%;
+  padding: 30px;
+  line-height: 40px;
+  .form-group-signup {
+    display: flex;
+    flex-direction: column;
+    .input {
+      width: 80%;
+      height: 20px;
+      padding: 8px;
+      border: none;
+      outline: none;
+      border-radius: 12px;
+      margin-top: 20px;
     }
-
-    .login_container_right{
-        background-color: #005BEA;
-        color: white;
-        font-weight: bold;
-        width: 100%;
-        padding: 30px;
-        line-height: 40px;
-        .form-group{
-            display: flex;
-            flex-direction: column;
-            .input {
-                width: 80%;
-                height: 20px;
-                padding: 8px;
-                border: none;
-                outline: none;
-                border-radius: 12px;
-                margin-top: 20px;
-            }
-        }
-        .buttons-group {
-            display: flex;
-            .singup-signin-button{
-                   background-color: #ffc001;
-                   border-radius: 5px;
-                   border: none;
-                   outline: none;
-                   padding: 10px;
-                   margin-top: 10px;
-                   cursor: pointer;
-            }
-       
-        }
-        Link {
-            font-size: 10px;
-            color: #5F9FF7;
-        }
+  }
+  .buttons-group {
+    display: flex;
+    .singup-signin-button {
+      background-color: #ffc001;
+      border-radius: 5px;
+      border: none;
+      outline: none;
+      padding: 10px;
+      margin-top: 10px;
+      cursor: pointer;
     }
+  }
+  Link {
+    font-size: 10px;
+    color: #5f9ff7;
+  }
+}

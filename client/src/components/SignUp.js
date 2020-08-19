@@ -107,9 +107,9 @@ function SignUp(props) {
       ) : null}
 
       <Form>
-        <div className="login_container_right">
+        <div className="form_group">
           <h1>Create Your account</h1>
-          <div className="form-group">
+          <div className="form-group-signup">
             <input
               type="text"
               placeholder="First Name..."

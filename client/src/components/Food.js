@@ -11,7 +11,7 @@ function Food(props) {
       {props.auth === true ? (
         <div className="card">
           <img src={url} alt="Avatar" className="img_food" />
-          <div className="container">
+          <div className="container_food_card">
             <h4>
               <b>{name}</b>
             </h4>
@@ -26,7 +26,7 @@ function Food(props) {
         <Link to="/login">
           <div className="card">
             <img src={url} alt="Avatar" className="img_food" />
-            <div className="container">
+            <div className="container_food_card">
               <h4>
                 <b>{name}</b>
               </h4>

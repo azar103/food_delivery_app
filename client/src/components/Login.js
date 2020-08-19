@@ -75,7 +75,7 @@ function Login(props) {
         <img src="../../login.jpg" alt="login" className="img_login" />
         <div className="login_container_right">
           <h1>Welcome !</h1>
-          <div className="form-group">
+          <div className="form-group-login">
             <input
               type="email"
               placeholder="Your email..."
