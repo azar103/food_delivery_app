@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import {Link} from 'react-router-dom'
+import React, { useState, useEffect } from "react";
 
-import './Nav.scss'
+import "./Nav.scss";
+import NavHeader from "./NavHeader";
 
-
- function Nav(props) {
-
-   
-    return (   
-          <ul>
-              {props.children}
-          </ul>  
-    )
+function Nav(props) {
+  return (
+    <ul>
+      <NavHeader />
+      {props.children}
+    </ul>
+  );
 }
 
-export default Nav
+export default Nav;

@@ -1,0 +1,52 @@
+.home_header_container {
+  width: 100%;
+  height: 552px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.title_container {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  background-color: #e33d26;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: bold;
+  padding: 15px;
+  font-size: 20px;
+  z-index: 2;
+}
+
+.card_container_header {
+  z-index: 1;
+  position: absolute;
+  background-color: wheat;
+  left: 150px;
+  top: 120px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  line-height: 45px;
+  bor #label {
+    font-size: 20px;
+  }
+  #label {
+    font-family: nyt-cheltenham, Georgia, "Times New Roman", serif;
+    font-size: 2.2rem;
+    color: #222222;
+  }
+  #price {
+    font-size: 1.4rem;
+    font-style: italic;
+  }
+}

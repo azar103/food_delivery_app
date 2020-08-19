@@ -1,22 +1,44 @@
 #footer {
-    display: flex;
-    justify-content: space-around;
-    padding:50px;
-    height: 90px;
-    line-height: 50px;
-    color: white;
-    background-color: #7359BE;
-    margin-top: 200px;
+  display: flex;
+  justify-content: space-around;
 
+  padding: 50px;
+  height: auto;
+  line-height: 50px;
+  color: white;
+  background-color: #7359be;
+  margin-top: 200px;
+  .contact_group {
+    flex-direction: column;
     .contact_row {
+      display: flex;
+
+      .fa {
+        margin-top: 14px;
+        margin-right: 10px;
+      }
+
+      .social {
         display: flex;
-        flex-direction: column;
-        strong {
-            font-size: 15px;
-        }
-        .social {
-            display: flex;
-            justify-content: space-around
-        }
+        justify-content: space-around;
+      }
     }
+  }
+  #email_footer {
+    height: 10px;
+    padding: 10px;
+  }
+  #sumbit_btn_foot {
+    background-color: yellow;
+    color: black;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    width: 100px;
+    font-weight: bold;
+  }
+  #sumbit_btn_foot:hover {
+    opacity: 0.9;
+    cursor: pointer;
+  }
 }

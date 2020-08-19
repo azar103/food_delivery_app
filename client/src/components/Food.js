@@ -1,50 +1,50 @@
-import React from 'react'
-import './Food.scss'
-import { Link, Redirect } from 'react-router-dom'
-import { connect } from 'react-redux'
-import swal from 'sweetalert'
- function Food(props) {
-    const {url, name, _id} = props.food
-    const NotAuthenticated =() => {
-      
-        swal('You must sign in before',"","error")
-            return(
-                <Redirect to="/"/>
-            )    
-   }
+import React from "react";
+import "./Food.scss";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 
-    return (
-          <>
-          {props.auth === true ?
-          
-          <Link to={`/foods/${_id}`}>
-            <div className="card">
-             <img src={url} alt="Avatar" className="img_food" />
-             <div class="container">
-             <h4><b>{name}</b></h4>
-            </div>
-            </div> 
-          </Link>   
-          :
-          <Link onClick={() => NotAuthenticated()}>
-          <div className="card">
-           <img src={url} alt="Avatar" className="img_food" />
-           <div class="container">
-           <h4><b>{name}</b></h4>
+function Food(props) {
+  const { price, url, name, _id } = props.food;
+
+  return (
+    <>
+      {props.auth === true ? (
+        <div className="card">
+          <img src={url} alt="Avatar" className="img_food" />
+          <div className="container">
+            <h4>
+              <b>{name}</b>
+            </h4>
+            <span>{price}DT</span>
+
+            <button className="order_btn">
+              <Link to={`/foods/${_id}`}>order </Link>
+            </button>
           </div>
-          </div> 
-        </Link>   
-        }
-          
-        </>  
-    )
+        </div>
+      ) : (
+        <Link to="/login">
+          <div className="card">
+            <img src={url} alt="Avatar" className="img_food" />
+            <div className="container">
+              <h4>
+                <b>{name}</b>
+              </h4>
+              <span>{price} DT </span>
+              <button className="order_btn">
+                <Link to="/login">order </Link>
+              </button>
+            </div>
+          </div>
+        </Link>
+      )}
+    </>
+  );
 }
 
-const mapStateToProps = state => {
-    return {
-        auth: state.authReducer.isAuthenticated
-    }
-}
-export default connect(mapStateToProps)(Food)
-
-
+const mapStateToProps = (state) => {
+  return {
+    auth: state.authReducer.isAuthenticated,
+  };
+};
+export default connect(mapStateToProps)(Food);

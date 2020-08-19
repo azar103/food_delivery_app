@@ -38,6 +38,7 @@ function Orders(props) {
           <Order key={index} order={order} onDelete={onDelete} />
         ))}
       </div>
+
       <Footer />
     </>
   ) : (
@@ -45,7 +46,12 @@ function Orders(props) {
       <Nav>
         <NavAuth />
       </Nav>
-      <img src="../../no_commands.jpg" alt="no_image" className="img_order" />
+      <img
+        src="../../no_commands.jpg"
+        alt="no_image"
+        className="img_order"
+        style={{ marginTop: "12px" }}
+      />
 
       {/**
          * <button

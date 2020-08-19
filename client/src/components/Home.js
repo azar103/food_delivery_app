@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Home.scss";
 import { connect } from "react-redux";
 
-import { getFoods } from "../reducers/foodActions";
+import { getFoods, foodsLoading } from "../reducers/foodActions";
 import Food from "./Food";
 import { Link, Redirect } from "react-router-dom";
 import Nav from "./Nav";
@@ -10,16 +10,26 @@ import NavAuth from "./NavAuth";
 import { getUser } from "../reducers/userActions";
 import Footer from "./Footer";
 
+import Skeleton from "@material-ui/lab/Skeleton";
+import HomeHeader from "./HomeHeader";
 function Home(props) {
   const [inputValue, setInputValue] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
-    props.dispatch(getFoods());
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+
+    loadFoods();
     if (props.user !== null) {
       props.dispatch(getUser(props.user.id));
     }
   }, []);
-
+  const loadFoods = () => {
+    props.dispatch(getFoods());
+    setIsLoading(true);
+  };
   const handleChange = (e) => {
     setInputValue(e.target.value);
   };
@@ -27,7 +37,7 @@ function Home(props) {
   const handleChangeSelectValue = (e) => {
     setSelectedValue(e.target.value);
   };
-  console.log(props.foods);
+
   const filteredFoodsByNameAndCity = props.foods.filter(
     (food) =>
       food.name.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1 &&
@@ -36,7 +46,6 @@ function Home(props) {
   const filteredFoodsByName = props.foods.filter(
     (food) => food.name.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1
   );
-  console.log(props.profile[0].firstName);
 
   return (
     <>
@@ -47,11 +56,13 @@ function Home(props) {
           <Nav>
             <NavAuth />
           </Nav>
+          <HomeHeader />
+
           <section className="home_header">
             <div className="home_header_presentation">
-              <h1>
-                <span id="title_span">Quick Food</span> delivery
-              </h1>
+              <h2>
+                <span className="title_span">Quick Food</span> delivery
+              </h2>
               <p>
                 Order your foods at any time and we will deliver them directly
                 to your home
@@ -62,7 +73,27 @@ function Home(props) {
                 )}
               </Link>
             </div>
-            <img id="header_image" src="../../header.jpg" alt="header_image" />
+            <img
+              className="header_image"
+              src="../../img_presentation.jpg"
+              alt="header_image"
+            />
+          </section>
+          <section className="about_us">
+            <img src="../../about_us.jpg" id="img_about_us" />
+            <div className="about_us_container">
+              <h2>
+                <span className="title_span_about">About</span> us
+              </h2>
+              <p>
+                Creativity, quality and professionalism are the elements that
+                characterize our Catering service. The experience we have gained
+                allows us to cook for you anywhere and to create the service you
+                want, from the informal event to the reception in an exclusive
+                location, from weddings to business meetings, from trade shows
+                to private dinners.
+              </p>
+            </div>
           </section>
           <section className="home_search">
             <h2>Search your Food</h2>
@@ -94,20 +125,29 @@ function Home(props) {
           </section>
           <section className="home_foods">
             <h2 id="home_foods_title">Most Recent Foods</h2>
-            <div className="foods_container">
-              {selectedValue !== "Select a city"
-                ? filteredFoodsByNameAndCity.length > 0 &&
-                  filteredFoodsByNameAndCity
-                    .slice(0, 6)
-                    .map((food, index) => <Food key={index} food={food} />)
-                    .reverse()
-                : filteredFoodsByName.length > 0 &&
-                  filteredFoodsByName
-                    .slice(0, 6)
-                    .map((food, index) => <Food key={index} food={food} />)
-                    .reverse()}
-            </div>
+            {isLoading === false ? (
+              <div className="foods_container">
+                {selectedValue !== "Select a city"
+                  ? filteredFoodsByNameAndCity.length > 0 &&
+                    filteredFoodsByNameAndCity
+                      .slice(0, 6)
+                      .map((food, index) => <Food key={index} food={food} />)
+                      .reverse()
+                  : filteredFoodsByName.length > 0 &&
+                    filteredFoodsByName
+                      .slice(0, 6)
+                      .map((food, index) => <Food key={index} food={food} />)
+                      .reverse()}
+              </div>
+            ) : (
+              <div className="skeleton_group">
+                <Skeleton variant="text" width={210} />
+                <Skeleton variant="circle" width={40} height={40} />
+                <Skeleton variant="rect" width={210} height={118} />
+              </div>
+            )}
           </section>
+
           <Footer />
         </>
       )}
@@ -118,9 +158,11 @@ function Home(props) {
 const mapStateToProps = (state) => {
   return {
     foods: state.foodReducer.foods,
+    isLoading: state.foodReducer.isLoading,
     items: state.cartReducer.items,
     auth: state.authReducer.isAuthenticated,
     redirectToAdmin: state.authReducer.redirectToAdmin,
+    redirectTo: state.authReducer.redirectTo,
     user: state.authReducer.user,
     profile: state.userReducer.user,
   };
