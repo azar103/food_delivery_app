@@ -22,14 +22,14 @@ h2 {
     padding: 30px;
     border: 7px solid var(--skin-color-primary);
 
-    h2 {
+    #search_label {
       font-size: 60px;
       .title_span {
         color: var(--skin-color-primary);
       }
       font-family: "Lobster", cursive;
       font-family: "Merriweather Sans", sans-serif;
-      text-align: left;
+      margin-right: 130px;
     }
     p {
       font-size: 15px;
