@@ -66,7 +66,7 @@ function SignUp(props) {
     props.dispatch(registerUser(user));
     console.log(props.error.msg);
     if (
-      props.error.status == null &&
+      props.error.msg.status === null &&
       firstName !== "" &&
       lastName !== "" &&
       password !== "" &&
