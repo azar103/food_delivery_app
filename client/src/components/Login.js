@@ -10,13 +10,16 @@ import { clearErros } from "../reducers/errorActions";
 import NavHeader from "./NavHeader";
 import NavAuth from "./NavAuth";
 import Footer from "./Footer";
-
+import store from "../store";
 function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
+
   const prevError = useRef();
   useEffect(() => {
+    store.getState().authReducer.redirectToLogin = false;
+    console.log(store.getState().errorReducer.redirectToLogin);
     const { error } = props;
     prevError.current = error;
     if (error !== prevError) {

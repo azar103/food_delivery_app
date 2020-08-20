@@ -67,11 +67,15 @@ function Home(props) {
                 Order your foods at any time and we will deliver them directly
                 to your home
               </p>
-              <Link to="/orders">
-                {props.auth === true && (
+              {props.auth === true ? (
+                <Link to="/orders">
+                  <button id="read_btn">Order Now</button>
+                </Link>
+              ) : (
+                <Link to="/login">
                   <button id="read_btn">Your orders</button>
-                )}
-              </Link>
+                </Link>
+              )}
             </div>
             <img
               className="header_image"
@@ -80,7 +84,10 @@ function Home(props) {
             />
           </section>
           <section className="about_us">
-            <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" id="img_about_us" />
+            <img
+              src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+              id="img_about_us"
+            />
             <div className="about_us_container">
               <h2>
                 <span className="title_span_about">About</span> us
@@ -96,7 +103,7 @@ function Home(props) {
             </div>
           </section>
           <section className="home_search">
-            <h2 id="search">Search your Food</h2>
+            <h2 id="search_label">Search your Food</h2>
             <div className="search_container">
               <input
                 type="text"

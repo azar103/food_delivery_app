@@ -39,6 +39,7 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         ...action.payload,
+        redirectToLogin: true,
       };
     case LOGIN_SUCCESS:
       localStorage.setItem("token", action.payload.token);
@@ -47,6 +48,7 @@ const authReducer = (state = initialState, action) => {
         ...action.payload,
         isAuthenticated: true,
         redirectTo: true,
+        redirectToLogin: false,
       };
     case AUTH_ERROR:
     case LOGIN_FAIL:

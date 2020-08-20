@@ -16,9 +16,11 @@ function SignUp(props) {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [tel, setTel] = useState("");
   const [address, setAddress] = useState("");
   const [msg, setMsg] = useState("");
+  const [redirectTo, setRedirectTo] = useState(false);
   const prevError = useRef();
   useEffect(() => {
     const { error } = props;
@@ -31,7 +33,7 @@ function SignUp(props) {
       }
     }
   });
-  const [redirectTo, setRedirectTo] = useState(false);
+
   const handChangeFirstName = (e) => {
     setFirstName(e.target.value);
   };
@@ -47,12 +49,25 @@ function SignUp(props) {
     setPassword(e.target.value);
   };
 
+  const handleChangeConfirmPassword = (e) => {
+    setConfirmPassword(e.target.value);
+  };
+
   const handleChangeTel = (e) => {
     setTel(e.target.value);
   };
   const handleChangeAddress = (e) => {
     setAddress(e.target.value);
   };
+  function isEmpty(obj) {
+    for (var prop in obj) {
+      if (obj.hasOwnProperty(prop)) {
+        return false;
+      }
+    }
+
+    return JSON.stringify(obj) === JSON.stringify({});
+  }
   const createUser = (e) => {
     e.preventDefault();
     const user = {
@@ -64,27 +79,20 @@ function SignUp(props) {
       tel,
     };
     props.dispatch(registerUser(user));
-    console.log(props.error.msg);
-    if (
-      props.error.msg.status === null &&
-      firstName !== "" &&
-      lastName !== "" &&
-      password !== "" &&
-      email != "" &&
-      address != "" &&
-      tel !== ""
-    ) {
+    console.log(Object.entries(props.error.msg).length);
+    if (props.redirectToLogin === true) {
       setRedirectTo(true);
       setFirstName("");
       setLastName("");
       setPassword("");
+      setConfirmPassword("");
       setEmail("");
       setAddress("");
       setTel("");
     }
   };
 
-  return redirectTo === false ? (
+  return props.redirectToLogin === false ? (
     <>
       <Nav>
         <NavAuth />
@@ -154,8 +162,10 @@ function SignUp(props) {
               type="password"
               placeholder="confirm your password..."
               className="input"
+              value={confirmPassword}
               onChange={(value) => {
                 props.dispatch(clearErros());
+                handleChangeConfirmPassword(value);
               }}
             />
             <input

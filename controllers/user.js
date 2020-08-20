@@ -40,7 +40,7 @@ exports.createUser = (req, res, next) => {
             { expiresIn: 86400 },
             (err, token) => {
               if (err) throw err;
-              res.json({
+              res.status(201).json({
                 token,
                 user: {
                   id: user._id,

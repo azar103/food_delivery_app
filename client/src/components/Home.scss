@@ -21,7 +21,15 @@ h2 {
     margin-top: 70px;
     padding: 30px;
     border: 7px solid var(--skin-color-primary);
-
+    h2 {
+      font-size: 60px;
+      .title_span {
+        color: var(--skin-color-primary);
+      }
+      font-family: "Lobster", cursive;
+      font-family: "Merriweather Sans", sans-serif;
+      text-align: left;
+    }
     #search_label {
       font-size: 60px;
       .title_span {
