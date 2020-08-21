@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { getLengthOfCart } from "../Helpers/functions";
 import Logout from "./Logout";
-import NavHeader from "./NavHeader";
 
 function NavAuth(props) {
   const getLength = () => {
@@ -14,11 +13,16 @@ function NavAuth(props) {
     }
   };
 
+  const findUserById = (id) => {
+    const user = props.users.find((user) => user._id === id);
+    return user;
+  };
+
   return (
     <>
       <div id="right">
         {props.auth && props.user && props.profile[0] && (
-          <li>{`Welcome, ${props.profile[0].firstName}`}</li>
+          <li>{`Welcome, ${findUserById(props.user.id).firstName}`}</li>
         )}
 
         <li>
@@ -64,6 +68,7 @@ const mapStateToProps = (state) => {
     auth: state.authReducer.isAuthenticated,
     profile: state.userReducer.user,
     user: state.authReducer.user,
+    users: state.userReducer.users,
   };
 };
 

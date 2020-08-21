@@ -21,6 +21,7 @@ function SignUp(props) {
   const [address, setAddress] = useState("");
   const [msg, setMsg] = useState("");
   const [redirectTo, setRedirectTo] = useState(false);
+
   const prevError = useRef();
   useEffect(() => {
     const { error } = props;
@@ -33,6 +34,9 @@ function SignUp(props) {
       }
     }
   });
+  useEffect(() => {
+    props.dispatch(clearErros());
+  }, []);
 
   const handChangeFirstName = (e) => {
     setFirstName(e.target.value);
@@ -59,27 +63,22 @@ function SignUp(props) {
   const handleChangeAddress = (e) => {
     setAddress(e.target.value);
   };
-  function isEmpty(obj) {
-    for (var prop in obj) {
-      if (obj.hasOwnProperty(prop)) {
-        return false;
-      }
-    }
 
-    return JSON.stringify(obj) === JSON.stringify({});
-  }
   const createUser = (e) => {
     e.preventDefault();
     const user = {
       firstName,
       lastName,
-      password,
       email,
-      address,
+      password,
+      confirmPassword,
       tel,
+      address,
     };
+
+    //firstName, lastName, email, password, confirmPassword, tel, address;
     props.dispatch(registerUser(user));
-    console.log(Object.entries(props.error.msg).length);
+
     if (props.redirectToLogin === true) {
       setRedirectTo(true);
       setFirstName("");

@@ -34,8 +34,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use("/api/users", userRoutes);
 app.use("/api/foods", foodRoutes);
 app.use("/api/items", cartRoutes);

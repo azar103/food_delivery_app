@@ -12,7 +12,6 @@ import OrdersDashboard from "./components/admin/OrdersDashboard";
 import FoodsDashboard from "./components/admin/FoodsDashboard";
 import UserSheet from "./components/admin/UserSheet";
 import UsersDashboard from "./components/admin/UsersDashboard";
-import DeletedUser from "./components/admin/DeletedUser";
 import AddFood from "./components/admin/AddFood";
 import EditFood from "./components/admin/EditFood";
 import DeleteFood from "./components/admin/DeleteFood";
@@ -20,8 +19,13 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 import { connect } from "react-redux";
 import DeleteOrder from "./components/DeleteOrder";
+import store from "./store";
+import { fetchUsers } from "./reducers/userActions";
 
 function App(props) {
+  useEffect(() => {
+    props.dispatch(fetchUsers());
+  }, []);
   return (
     <Switch>
       <Route exact path="/" component={Home} />
@@ -55,11 +59,7 @@ function App(props) {
         isAuth={props.auth.redirectToAdmin}
         component={FoodsDashboard}
       />
-      <ProtectedRoute
-        path="/admin/users/:id"
-        isAuth={props.auth.redirectToAdmin}
-        component={DeletedUser}
-      />
+
       <ProtectedRoute
         path="/admin/users"
         isAuth={props.auth.redirectToAdmin}
@@ -93,6 +93,7 @@ function App(props) {
 const mapStateToProps = (state) => {
   return {
     auth: state.authReducer,
+    users: state.UserReducer,
   };
 };
 export default connect(mapStateToProps)(App);

@@ -17,6 +17,7 @@ const initialState = {
   user: null,
   redirectTo: false,
   redirectToAdmin: false,
+  redirectToLogin: false,
 };
 
 const authReducer = (state = initialState, action) => {

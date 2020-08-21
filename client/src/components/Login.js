@@ -19,7 +19,6 @@ function Login(props) {
   const prevError = useRef();
   useEffect(() => {
     store.getState().authReducer.redirectToLogin = false;
-    console.log(store.getState().errorReducer.redirectToLogin);
     const { error } = props;
     prevError.current = error;
     if (error !== prevError) {

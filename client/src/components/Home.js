@@ -7,7 +7,7 @@ import Food from "./Food";
 import { Link, Redirect } from "react-router-dom";
 import Nav from "./Nav";
 import NavAuth from "./NavAuth";
-import { getUser } from "../reducers/userActions";
+
 import Footer from "./Footer";
 
 import Skeleton from "@material-ui/lab/Skeleton";
@@ -16,18 +16,22 @@ function Home(props) {
   const [inputValue, setInputValue] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { user, dispatch } = props;
+  const [didMount, setDidMount] = useState(false);
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
+    setDidMount(true);
+    if (didMount) {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 3000);
 
-    loadFoods();
-    if (props.user !== null) {
-      props.dispatch(getUser(props.user.id));
+      loadFoods();
     }
+
+    return () => setDidMount(false);
   }, []);
   const loadFoods = () => {
-    props.dispatch(getFoods());
+    dispatch(getFoods());
     setIsLoading(true);
   };
   const handleChange = (e) => {
@@ -172,6 +176,7 @@ const mapStateToProps = (state) => {
     redirectTo: state.authReducer.redirectTo,
     user: state.authReducer.user,
     profile: state.userReducer.user,
+    users: state.userReducer.users,
   };
 };
 

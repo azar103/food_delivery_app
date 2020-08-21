@@ -34,8 +34,7 @@ function SingleFood(props) {
 
   const findFoodByIndex = (items, food) => {
     const index = items.findIndex(
-      (item) =>
-        item.food.name === food.name && item.userId === props.profile[0]._id
+      (item) => item.food.name === food.name && item.userId === props.user.id
     );
     return index;
   };

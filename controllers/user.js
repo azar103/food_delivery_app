@@ -4,21 +4,36 @@ const jwt = require("jsonwebtoken");
 const config = require("config");
 
 exports.createUser = (req, res, next) => {
-  const { lastName, firstName, email, password, address, tel } = req.body;
+  const {
+    lastName,
+    firstName,
+    email,
+    password,
+    confirmPassword,
+    address,
+    tel,
+  } = req.body;
+  console.log(req.body.confirmPassword);
+  if (password !== confirmPassword) {
+    return res.status(400).json({ message: "passwords didn't match!" });
+  }
   if (!lastName || !firstName || !email || !password || !address || !tel) {
     return res.status(400).json({ message: "Please enter all fields!" });
   }
+
   const regexMail = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
 
   if (!email.match(regexMail)) {
     return res.status(500).json({ message: "Please enter a valid mail!" });
   }
+
   const regexTel = /[0-9]{8}/;
   if (!tel.match(regexTel)) {
     return res
       .status(500)
       .json({ message: "the phone number must contain only 8 digits!" });
   }
+
   User.findOne({ email }).then((user) => {
     if (user) return res.status(400).json({ message: "User already exist" });
     const newUser = new User({
@@ -29,6 +44,7 @@ exports.createUser = (req, res, next) => {
       address,
       tel,
     });
+
     bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(newUser.password, salt, (err, hash) => {
         if (err) throw err;
@@ -83,7 +99,7 @@ exports.login = (req, res, next) => {
             { expiresIn: 86400 },
             (err, token) => {
               if (err) throw err;
-              res.json({
+              res.status(200).json({
                 token,
                 user: {
                   id: user._id,
@@ -91,6 +107,7 @@ exports.login = (req, res, next) => {
                   password: user.password,
                   name: user.name,
                 },
+                messageSuccess: "account created with success",
               });
             }
           );
