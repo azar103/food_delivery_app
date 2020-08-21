@@ -13,12 +13,12 @@ exports.createUser = (req, res, next) => {
     address,
     tel,
   } = req.body;
-  console.log(req.body.confirmPassword);
+
   if (password !== confirmPassword) {
-    return res.status(400).json({ message: "passwords didn't match!" });
+    return res.status(500).json({ message: "passwords didn't match!" });
   }
   if (!lastName || !firstName || !email || !password || !address || !tel) {
-    return res.status(400).json({ message: "Please enter all fields!" });
+    return res.status(500).json({ message: "Please enter all fields!" });
   }
 
   const regexMail = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;

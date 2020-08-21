@@ -21,7 +21,7 @@ function NavAuth(props) {
   return (
     <>
       <div id="right">
-        {props.auth && props.user && props.profile[0] && (
+        {props.auth && props.user && (
           <li>{`Welcome, ${findUserById(props.user.id).firstName}`}</li>
         )}
 
@@ -66,7 +66,6 @@ const mapStateToProps = (state) => {
   return {
     items: state.cartReducer.items,
     auth: state.authReducer.isAuthenticated,
-    profile: state.userReducer.user,
     user: state.authReducer.user,
     users: state.userReducer.users,
   };

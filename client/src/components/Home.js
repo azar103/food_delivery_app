@@ -16,13 +16,14 @@ function Home(props) {
   const [inputValue, setInputValue] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { user, dispatch } = props;
+  const { dispatch } = props;
   const [didMount, setDidMount] = useState(false);
   useEffect(() => {
     setDidMount(true);
+
     if (didMount) {
       setTimeout(() => {
-        setIsLoading(false);
+        setIsLoading(true);
       }, 3000);
 
       loadFoods();
@@ -32,7 +33,7 @@ function Home(props) {
   }, []);
   const loadFoods = () => {
     dispatch(getFoods());
-    setIsLoading(true);
+    setIsLoading(false);
   };
   const handleChange = (e) => {
     setInputValue(e.target.value);
@@ -175,7 +176,6 @@ const mapStateToProps = (state) => {
     redirectToAdmin: state.authReducer.redirectToAdmin,
     redirectTo: state.authReducer.redirectTo,
     user: state.authReducer.user,
-    profile: state.userReducer.user,
     users: state.userReducer.users,
   };
 };
