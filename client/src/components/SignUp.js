@@ -10,6 +10,7 @@ import { Alert } from "reactstrap";
 import { clearErros } from "../reducers/errorActions";
 import NavHeader from "./NavHeader";
 import NavAuth from "./NavAuth";
+import Footer from "./Footer";
 
 function SignUp(props) {
   const [firstName, setFirstName] = useState("");
@@ -198,6 +199,7 @@ function SignUp(props) {
           </div>
         </div>
       </Form>
+      <Footer />
     </>
   ) : (
     <Redirect to="/login" />
