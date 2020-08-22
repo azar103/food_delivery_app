@@ -19,13 +19,13 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 import { connect } from "react-redux";
 import DeleteOrder from "./components/DeleteOrder";
-import store from "./store";
+
 import { fetchUsers } from "./reducers/userActions";
 
 function App(props) {
   useEffect(() => {
     props.dispatch(fetchUsers());
-  }, []);
+  });
   return (
     <Switch>
       <Route exact path="/" component={Home} />
@@ -93,7 +93,7 @@ function App(props) {
 const mapStateToProps = (state) => {
   return {
     auth: state.authReducer,
-    users: state.UserReducer,
+    users: state.userReducer,
   };
 };
 export default connect(mapStateToProps)(App);

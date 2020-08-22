@@ -12,6 +12,7 @@ import Footer from "./Footer";
 
 import Skeleton from "@material-ui/lab/Skeleton";
 import HomeHeader from "./HomeHeader";
+import { fetchUsers } from "../reducers/userActions";
 function Home(props) {
   const [inputValue, setInputValue] = useState("");
   const [selectedValue, setSelectedValue] = useState("");

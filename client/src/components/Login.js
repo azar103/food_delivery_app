@@ -28,6 +28,7 @@ function Login(props) {
         setMsg(null);
       }
     }
+    window.scrollTo(0, 0);
   });
 
   const handleChangeEmail = (e) => {

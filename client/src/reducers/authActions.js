@@ -35,7 +35,7 @@ export const registerUser = ({
     address,
   });
   axios
-    .post("/api/users", body, config)
+    .post("/api/users/signup", body, config)
     .then((res) => {
       dispatch({
         type: REGISTER_SUCCESS,

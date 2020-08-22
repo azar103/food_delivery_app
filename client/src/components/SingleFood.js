@@ -17,6 +17,7 @@ function SingleFood(props) {
   useEffect(() => {
     props.dispatch(getFoods());
     setPrice(price * getCount());
+    window.scrollTo(0, 0);
   }, []);
 
   const getCount = () => {

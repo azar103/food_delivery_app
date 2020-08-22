@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { getLengthOfCart } from "../Helpers/functions";
 import Logout from "./Logout";
+import { fetchUsers } from "../reducers/userActions";
 
 function NavAuth(props) {
   const getLength = () => {
@@ -12,6 +13,9 @@ function NavAuth(props) {
       return getLengthOfCart(props.items, props.user);
     }
   };
+  useEffect(() => {
+    props.dispatch(fetchUsers());
+  }, []);
 
   const findUserById = (id) => {
     const user = props.users.find((user) => user._id === id);
