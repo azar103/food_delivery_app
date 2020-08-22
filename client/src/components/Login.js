@@ -28,9 +28,10 @@ function Login(props) {
         setMsg(null);
       }
     }
-    window.scrollTo(0, 0);
   });
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
   };
