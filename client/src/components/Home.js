@@ -91,7 +91,7 @@ function Home(props) {
           </section>
           <section className="about_us">
             <img
-              src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+              src="https://images.unsplash.com/photo-1531326240216-7b04ad593229?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
               id="img_about_us"
             />
             <div className="about_us_container">
