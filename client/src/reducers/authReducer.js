@@ -14,7 +14,6 @@ const {
 const initialState = {
   token: localStorage.getItem("token"),
   isAuthenticated: false,
-  user: null,
   redirectTo: false,
   redirectToAdmin: false,
   redirectToLogin: false,

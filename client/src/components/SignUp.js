@@ -12,6 +12,8 @@ import NavHeader from "./NavHeader";
 import NavAuth from "./NavAuth";
 import Footer from "./Footer";
 
+import { getUser } from "../reducers/userActions";
+
 function SignUp(props) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -22,6 +24,7 @@ function SignUp(props) {
   const [address, setAddress] = useState("");
   const [msg, setMsg] = useState("");
   const [redirectTo, setRedirectTo] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const prevError = useRef();
   useEffect(() => {
@@ -78,10 +81,13 @@ function SignUp(props) {
     };
 
     //firstName, lastName, email, password, confirmPassword, tel, address;
+    console.log(isLoading);
     props.dispatch(registerUser(user));
-
-    if (props.redirectToLogin === true) {
+    setIsLoading(true);
+    setTimeout(() => {
       setRedirectTo(true);
+    }, 3000);
+    if (props.redirectToLogin === true) {
       setFirstName("");
       setLastName("");
       setPassword("");
@@ -92,7 +98,7 @@ function SignUp(props) {
     }
   };
 
-  return props.redirectToLogin === false ? (
+  return redirectTo === false ? (
     <>
       <Nav>
         <NavAuth />
@@ -193,8 +199,13 @@ function SignUp(props) {
             <button
               className="singup-signin-button"
               onClick={(e) => createUser(e)}
+              disabled={isLoading}
             >
-              <b>Create An Account</b>
+              {isLoading === true ? (
+                <i className="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+              ) : (
+                <b>Create An Account</b>
+              )}
             </button>
           </div>
         </div>
@@ -211,6 +222,7 @@ const mapStateToProps = (state) => {
     isAuth: state.authReducer.isAuthenticated,
     error: state.errorReducer,
     redirectToLogin: state.authReducer.redirectToLogin,
+    redirectTo: state.authReducer.redirectTo,
   };
 };
 export default connect(mapStateToProps)(SignUp);

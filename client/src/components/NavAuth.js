@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { getLengthOfCart } from "../Helpers/functions";
 import Logout from "./Logout";
-import { fetchUsers } from "../reducers/userActions";
+import { fetchUsers, getUser, clearUser } from "../reducers/userActions";
 
 function NavAuth(props) {
   const getLength = () => {
@@ -16,23 +16,20 @@ function NavAuth(props) {
   useEffect(() => {
     props.dispatch(fetchUsers());
   }, []);
-
-  const findUserById = (id) => {
-    const user = props.users.find((user) => user._id === id);
-    return user;
-  };
-
+  useEffect(() => {
+    if (props.user !== null) {
+      props.dispatch(getUser(props.user.id));
+    }
+  });
   return (
     <>
       <div id="right">
-        {props.auth && props.user && (
-          <li>{`Welcome, ${findUserById(props.user.id).firstName}`}</li>
-        )}
-
         <li>
           <a href="#footer">Contact</a>
         </li>
-
+        {props.auth && props.user && (
+          <li>{`Welcome, ${props.myProfile[0].firstName}`}</li>
+        )}
         {getLength() > 0
           ? props.auth && (
               <li>
@@ -72,6 +69,7 @@ const mapStateToProps = (state) => {
     auth: state.authReducer.isAuthenticated,
     user: state.authReducer.user,
     users: state.userReducer.users,
+    myProfile: state.userReducer.user,
   };
 };
 

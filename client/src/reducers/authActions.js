@@ -6,6 +6,7 @@ import {
   LOGIN_FAIL,
   LOGIN_ADMIN_SUCCESS,
   LOGOUT_ADMIN_SUCCESS,
+  CLEAR_USER,
 } from "./actionTypes";
 
 import axios from "axios";
@@ -38,7 +39,7 @@ export const registerUser = ({
     .post("/api/users/signup", body, config)
     .then((res) => {
       dispatch({
-        type: REGISTER_SUCCESS,
+        type: LOGIN_SUCCESS,
         payload: res.data,
       });
     })
@@ -77,10 +78,10 @@ export const login = ({ email, password }) => (dispatch) => {
     });
 };
 
-export const logout = () => {
-  return {
+export const logout = () => (dispatch) => {
+  dispatch({
     type: LOGOUT_SUCCESS,
-  };
+  });
 };
 
 export const loginAdmin = () => {
