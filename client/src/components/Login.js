@@ -15,7 +15,8 @@ function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [redirectTo, setRedirectTo] = useState(false);
   const prevError = useRef();
   useEffect(() => {
     store.getState().authReducer.redirectToLogin = false;
@@ -46,6 +47,7 @@ function Login(props) {
         email,
         password,
       };
+
       props.dispatch(login(user));
     } else {
       props.dispatch(loginAdmin());
@@ -54,7 +56,7 @@ function Login(props) {
 
   return props.auth.redirectToAdmin === true ? (
     <Redirect to="/admin" />
-  ) : props.auth.redirectTo === false ? (
+  ) : props.auth.isAuthenticated === false ? (
     <>
       <Nav>
         <NavAuth />
@@ -106,7 +108,7 @@ function Login(props) {
               className="singup-signin-button"
               onClick={(e) => onSubmit(e)}
             >
-              <b>Sign In</b>
+              <b>Log In</b>
             </button>
           </div>
           <Link

@@ -11,8 +11,7 @@ import { clearErros } from "../reducers/errorActions";
 import NavHeader from "./NavHeader";
 import NavAuth from "./NavAuth";
 import Footer from "./Footer";
-
-import { getUser } from "../reducers/userActions";
+import { clearUser } from "../reducers/userActions";
 
 function SignUp(props) {
   const [firstName, setFirstName] = useState("");
@@ -81,13 +80,14 @@ function SignUp(props) {
     };
 
     //firstName, lastName, email, password, confirmPassword, tel, address;
-    console.log(isLoading);
     props.dispatch(registerUser(user));
-    setIsLoading(true);
-    setTimeout(() => {
-      setRedirectTo(true);
-    }, 3000);
-    if (props.redirectToLogin === true) {
+
+    if (props.isAuth === true) {
+      setIsLoading(true);
+      setTimeout(() => {
+        setRedirectTo(true);
+      }, 3000);
+
       setFirstName("");
       setLastName("");
       setPassword("");
@@ -98,7 +98,7 @@ function SignUp(props) {
     }
   };
 
-  return redirectTo === false ? (
+  return props.redirectTo === false ? (
     <>
       <Nav>
         <NavAuth />
@@ -201,11 +201,10 @@ function SignUp(props) {
               onClick={(e) => createUser(e)}
               disabled={isLoading}
             >
-              {isLoading === true ? (
-                <i className="fa fa-spinner fa-spin fa-3x fa-fw"></i>
-              ) : (
-                <b>Create An Account</b>
-              )}
+              <b>
+                {isLoading && <i className="fa fa-refresh fa-spin fa-fw"></i>}
+                Create An Account
+              </b>
             </button>
           </div>
         </div>
@@ -213,7 +212,7 @@ function SignUp(props) {
       <Footer />
     </>
   ) : (
-    <Redirect to="/login" />
+    <Redirect to="/" />
   );
 }
 

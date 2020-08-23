@@ -13,6 +13,7 @@ import Footer from "./Footer";
 import Skeleton from "@material-ui/lab/Skeleton";
 import HomeHeader from "./HomeHeader";
 import { fetchUsers } from "../reducers/userActions";
+import { Spinner } from "reactstrap";
 function Home(props) {
   const [inputValue, setInputValue] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
@@ -20,21 +21,23 @@ function Home(props) {
   const { dispatch } = props;
   const [didMount, setDidMount] = useState(false);
   useEffect(() => {
+    window.scrollTo(0, 0);
     setDidMount(true);
 
     if (didMount) {
-      setTimeout(() => {
-        setIsLoading(true);
-      }, 3000);
-
       loadFoods();
+      dispatch(getFoods());
     }
 
-    return () => setDidMount(false);
+    return () => {
+      setDidMount(false);
+    };
   }, []);
   const loadFoods = () => {
+    setTimeout(() => {
+      setIsLoading(true);
+    }, 3000);
     dispatch(getFoods());
-    setIsLoading(false);
   };
   const handleChange = (e) => {
     setInputValue(e.target.value);
@@ -153,11 +156,9 @@ function Home(props) {
                       .reverse()}
               </div>
             ) : (
-              <div className="skeleton_group">
-                <Skeleton variant="text" width={210} />
-                <Skeleton variant="circle" width={40} height={40} />
-                <Skeleton variant="rect" width={210} height={118} />
-              </div>
+              <Spinner animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+              </Spinner>
             )}
           </section>
 
